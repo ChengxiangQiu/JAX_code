@@ -27,13 +27,13 @@ pdata = pd.read_csv(os.path.join(WORK_PATH, 'df_cell.csv'), index_col = 0)
 adata.obs = pdata
 
 day_include = ["E8.5", "E8.75", "E9.0", "E9.25", "E9.5", "E9.75", "E10.0"]
-celltype_include = ["Notochord", "Nodal cilia", "Neuromesodermal progenitors", "Gut", "Mesodermal progenitors (Tbx6+)"]
+celltype_include = ["Notochord", "Nodal cilia", "NMPs and spinal cord progenitors", "Gut", "Mesodermal progenitors (Tbx6+)"]
 
 example_id = "posterior_embryo"
 print(example_id)
 
 adata = adata[adata.obs["day"].isin(day_include)]
-adata = adata[adata.obs["celltype_update"].isin(celltype_include)]
+adata = adata[adata.obs["celltype"].isin(celltype_include)]
 
 adata.write(os.path.join(WORK_PATH, '%s_adata_scale.h5ad'%example_id), compression="gzip")
 
@@ -89,7 +89,7 @@ print(str(format((time.time() - start_time)/3600, '.4f')) + 'hours')
 adata.obs['UMAP_2d_1'] = list(adata.obsm['X_umap'][:,0])
 adata.obs['UMAP_2d_2'] = list(adata.obsm['X_umap'][:,1])
 
-adata.obs.to_csv(os.path.join(WORK_PATH, '%s_adata_scale.obs.replicate.csv'%example_id))
+adata.obs.to_csv(os.path.join(WORK_PATH, '%s_adata_scale.obs.csv'%example_id))
 
 adata.write(os.path.join(WORK_PATH, '%s_adata_scale_processed.h5ad'%example_id), compression="gzip")
 print("Done writing data ...")

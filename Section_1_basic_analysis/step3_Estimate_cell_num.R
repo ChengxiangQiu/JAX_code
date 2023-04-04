@@ -97,7 +97,7 @@ write.csv(df_x, "cell_num_prediction.csv")
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = read.csv("df_cell.csv", header=T, as.is=T, row.names=1)
+pd = readRDS("df_cell.rds")
 ### n = 11,441,407 cells retained
 
 cell_num = read.csv("cell_num_prediction.csv")

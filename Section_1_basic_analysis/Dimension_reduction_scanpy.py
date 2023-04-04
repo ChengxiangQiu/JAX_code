@@ -3,6 +3,9 @@
 ### Here, we peformed basic analysis (normalization, dimension reuction, and clustering) on 11.4M dataset ###
 #############################################################################################################
 
+### Of note, this data should include 24,552 genes and 11,441,407 cells
+### Hint: I suggest to request >500GB for the following analysis.
+
 import scanpy as sc
 import pandas as pd
 import numpy as np
@@ -111,11 +114,12 @@ adata_orig = adata_1.concatenate(adata_2, adata_3, adata_4)
 del adata_1, adata_2, adata_3, adata_4
 gc.collect()
 
+### Of note, please read df_cell.rds and then write it to df_cell.csv in R
 pdata = pd.read_csv(os.path.join(WORK_PATH, 'df_cell.csv'), index_col = 0)
 adata_orig.obs = pdata
 
-trajectory_list = ["Brain_and_spinal_cord",
-"Intermediate_progenitors",
+trajectory_list = ["Neuroectoderm_and_glia",
+"Intermediate_neuronal_progenitors",
 "Eye_and_other",
 "Ependymal_cells",
 "CNS_neurons",

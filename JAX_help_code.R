@@ -3,13 +3,23 @@
 ### Profiles that are used for analysis ###
 ###########################################
 
-### 1. df_cell.csv                     ### meta information of individual cells
+### All those data are provided from
+### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/nobackup/jax/download/other/
+### Please let me know if any questions (cxqiu@uw.edu)
+
+### Section_1_basic_analysis
+### 1. df_cell.rds                     ### meta information of individual cells
 ### 2. mouse.v12.geneID.txt            ### gene annotation based on GENCODE.M12
 ### 3. embryo_cds.rds                  ### pseudobulk dataset of individual embryos, in monocle/v3 format
 
-### 4. posterior_embryo_gene_count.rds ### gene count of posterior embryos (somites 0-32)
-### 5. pd_somites.rds                  ### meta information of individual cells for the somitogenesis validation dataset
-### 6. adata_somites_NMP.obs.csv       ### meta information of individual cells for the NMP in the validation dataset
+### Section_2_posterior_embryo
+### 1. posterior_embryo_adata_scale.obs.csv  ### meta information of individual cells for posterior embryo subset
+### 2. pd_somites.rds                        ### meta information of individual cells for the somitogenesis validation dataset
+### 3. adata_somites_NMP.obs.csv             ### meta information of individual cells for the NMP in the validation dataset
+
+### Section_3_kidney_mesenchyme
+### 1. Renal_adata_scale.obs.rds          ### meta information of renal subset
+### 2. Renal_CDI_adata_scale.obs.rds.     ### meta information of a subset of renal cells
 
 ################################################
 ### Packges that are needed for the analysis ###

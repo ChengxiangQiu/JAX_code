@@ -1,7 +1,7 @@
 
-#######################################################################################################################################
-### Here, we peformed basic analysis (normalization, dimension reuction, and clustering) on lateral plate and intermediate mesoderm ###
-#######################################################################################################################################
+############################################################################################################
+### Here, we peformed basic analysis (normalization, dimension reuction, and clustering) on renal subset ###
+############################################################################################################
 
 import scanpy as sc
 import pandas as pd
@@ -26,9 +26,18 @@ gc.collect()
 pdata = pd.read_csv(os.path.join(WORK_PATH, 'df_cell.csv'), index_col = 0)
 adata.obs = pdata
 
-celltype_include = ["Lateral plate and intermediate mesoderm"]
+celltype_include = ["Adrenal-gonadal primordium progenitors",
+"Podocytes",
+"Proximal tubule cells",
+"Renal progenitor cells",
+"Collecting duct intercalated cells",
+"Intermediate mesoderm",
+"Ascending loop of Henle",
+"Distal convoluted tubule",
+"Collecting duct cells",
+"Collecting duct principal cells"]
 
-example_id = "LPM"
+example_id = "renal"
 print(example_id)
 
 adata = adata[adata.obs["celltype_update"].isin(celltype_include)]
@@ -87,7 +96,7 @@ print(str(format((time.time() - start_time)/3600, '.4f')) + 'hours')
 adata.obs['UMAP_2d_1'] = list(adata.obsm['X_umap'][:,0])
 adata.obs['UMAP_2d_2'] = list(adata.obsm['X_umap'][:,1])
 
-adata.obs.to_csv(os.path.join(WORK_PATH, '%s_adata_scale.obs.replicate.csv'%example_id))
+adata.obs.to_csv(os.path.join(WORK_PATH, '%s_adata_scale.obs.csv'%example_id))
 
 adata.write(os.path.join(WORK_PATH, '%s_adata_scale_processed.h5ad'%example_id), compression="gzip")
 print("Done writing data ...")

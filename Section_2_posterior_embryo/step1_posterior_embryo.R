@@ -26,7 +26,7 @@ pd$cluster_tmp = as.vector(cluster_tmp)
 write.csv(paste0(example_i, "_adata_scale.obs.csv"))
 
 ### making 3D UMAP, with cells are colored by their initial cell type annotations (Fig. 2a)
-fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~celltype_update, colors = posterior_embryo_color_plate) %>% 
+fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~celltype, colors = posterior_embryo_color_plate) %>% 
     layout(scene = list(xaxis=list(title = list(text ='UMAP_1', font = t1), tickfont = t2),
                         yaxis=list(title = list(text ='UMAP_2', font = t1), tickfont = t2),
                         zaxis=list(title = list(text ='UMAP_3', font = t1), tickfont = t2),

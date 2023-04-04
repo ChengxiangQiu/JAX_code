@@ -10,7 +10,7 @@
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = read.csv("df_cell.csv", header=T, as.is=T, row.names=1)
+pd = readRDS("df_cell.rds")
 ### n = 11,441,407 cells retained
 
 pd_sub_1 = pd[pd$sequencing_batch == "run_22" &
