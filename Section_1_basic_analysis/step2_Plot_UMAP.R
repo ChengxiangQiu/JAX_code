@@ -1,50 +1,22 @@
 
 ###################################
-### Section - 1, Basci analysis ###
+### Section - 1, Basic analysis ###
 ###################################
-
-####################################
-### Making 2D UMAP visualization ###
-####################################
-
-source("JAX_help_code.R")
-source("JAX_color_code.R")
-
-pd = readRDS("df_cell.rds")
-### n = 11,441,407 cells retained
-
-### Making 2D UMAP visualization for the global embedding
-
-### Highlight cells with their major trajectories (Fig. 1f)
-
-p = pd %>%
-    ggplot() +
-    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.5) +
-    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = major_trajectory), size=0.3) +
-    scale_color_manual(values = major_trajectory_color_plate) +
-    theme_void() +
-    theme(legend.position="none") + 
-    ggsave("Global_embedding_2D_UMAP_major_trajectory.png", width = 10, height = 10, dpi = 300)
-
-### Highlight cells with their day timepoints (Fig. 1f)
-### Of note, we need to downsample cells from each timepint to a similar number (i.e. 100,000)
-
-pd_1 = pd %>% filter(pd$day %in% c("E8.75", "E17.25")) %>% as.data.frame()
-pd_2 = pd %>% filter(!pd$day %in% c("E8.75", "E17.25")) %>% group_by(day) %>% sample_n(100000) %>% as.data.frame()
-pd_sub = rbind(pd_1, pd_2)
-p = pd_sub[sample(1:nrow(pd_sub))] %>%
-    ggplot() +
-    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.5) +
-    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = day), size=0.3) +
-    scale_color_manual(values=day_color_plate) +
-    theme_void() +
-    theme(legend.position="none") + 
-    ggsave("Global_embedding_2D_UMAP_day.png", width = 10, height = 10, dpi = 300)
 
 
 ###################
 ### Cell number ###
 ###################
+
+source("JAX_help_code.R")
+source("JAX_color_code.R")
+
+pd = readRDS("df_cell.rds")
+### n = 11,441,407 cells
+
+x = as.vector(pd$day)
+x[pd$day == "E8.0-E8.5"] = "E8.5"
+pd$day = as.vector(x)
 
 ### Making bar plot for cell number from individual timepoints (Fig. 1c)
 
@@ -96,9 +68,59 @@ print(p2)
 dev.off()
 
 
+####################################
+### Making 2D UMAP visualization ###
+####################################
+
+source("JAX_help_code.R")
+source("JAX_color_code.R")
+
+pd = readRDS("df_cell.rds")
+### n = 11,441,407 cells
+
+x = as.vector(pd$day)
+x[pd$day == "E8.0-E8.5"] = "E8.5"
+pd$day = as.vector(x)
+
+### Making 2D UMAP visualization for the global embedding
+
+### Highlight cells with their major trajectories (Fig. 1f)
+
+p = pd %>%
+    ggplot() +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.5) +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = major_trajectory), size=0.3) +
+    scale_color_manual(values = major_trajectory_color_plate) +
+    theme_void() +
+    theme(legend.position="none") + 
+    ggsave("Global_embedding_2D_UMAP_major_trajectory.png", width = 10, height = 10, dpi = 300)
+
+### Highlight cells with their day timepoints (Fig. 1f)
+### Of note, we need to downsample cells from each timepint to a similar number (i.e. 100,000)
+
+pd_1 = pd %>% filter(pd$day %in% c("E8.75", "E17.25")) %>% as.data.frame()
+pd_2 = pd %>% filter(!pd$day %in% c("E8.75", "E17.25")) %>% group_by(day) %>% sample_n(100000) %>% as.data.frame()
+pd_sub = rbind(pd_1, pd_2)
+p = pd_sub[sample(1:nrow(pd_sub))] %>%
+    ggplot() +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.5) +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = day), size=0.3) +
+    scale_color_manual(values=day_color_plate) +
+    theme_void() +
+    theme(legend.position="none") + 
+    ggsave("Global_embedding_2D_UMAP_day.png", width = 10, height = 10, dpi = 300)
+
+
+
 ###############################################################################
 ### Making 3D UMAP for individual major_trajectories (Supplementary Fig. 4) ###
 ###############################################################################
+
+source("JAX_help_code.R")
+source("JAX_color_code.R")
+
+pd = readRDS("df_cell.rds")
+### n = 11,441,407 cells
 
 major_trajectory_list = names(major_trajectory_color_plate)
 

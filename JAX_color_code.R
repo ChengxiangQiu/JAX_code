@@ -21,7 +21,7 @@ major_trajectory_color_plate = c("Neuroectoderm_and_glia"             = "#f96100
                                  "CNS_neurons"                        = "#e5c000",
                                  "Mesoderm"                           = "#bb46c5",
                                  "Definitive_erythroid"               = "#dc453e",
-                                 "Epithelium"                         = "#af9fb6",
+                                 "Epithelial_cells"                   = "#af9fb6",
                                  "Endothelium"                        = "#00a34e",
                                  "Muscle_cells"                       = "#ffa1f5",
                                  "Hepatocytes"                        = "#185700",

@@ -8,18 +8,26 @@
 ### Please let me know if any questions (cxqiu@uw.edu)
 
 ### Section_1_basic_analysis
-### 1. df_cell.rds                     ### meta information of individual cells
-### 2. mouse.v12.geneID.txt            ### gene annotation based on GENCODE.M12
-### 3. embryo_cds.rds                  ### pseudobulk dataset of individual embryos, in monocle/v3 format
+### mouse.v12.geneID.txt                                  ### gene annotation based on GENCODE.M12
+### df_gene_all.csv                                       ### gene annotation in a simple format, including 49,585 genes on chr1-19, chrM, chrX, and chrY
+### run_16_RT-sci-samplesheet.csv                         ### RT barcode information for individual cells in run_16
+### df_cell.rds                                           ### meta information of individual cells
+### embryo_cds.rds                                        ### pseudobulk dataset of individual embryos, in monocle/v3 format
+### cell_num_prediction.rds                               ### predicted cell number for individual embryos
 
 ### Section_2_posterior_embryo
-### 1. posterior_embryo_adata_scale.obs.csv  ### meta information of individual cells for posterior embryo subset
-### 2. pd_somites.rds                        ### meta information of individual cells for the somitogenesis validation dataset
-### 3. adata_somites_NMP.obs.csv             ### meta information of individual cells for the NMP in the validation dataset
+### posterior_embryo_adata_scale.obs.csv                  ### meta information of individual cells for posterior embryo subset
+### posterior_embryo_gene_count.rds                       ### UMI count matrix of subset of cells for posterior embryo development
+### posterior_embryo_adata_scale.NMP_Mesoderm.obs.csv     ### meta information of individual cells for posterior embryo subset (NMP)
+### posterior_embryo_adata_scale.Notochord.obs.csv        ### meta information of individual cells for posterior embryo subset (Notochord)
+### posterior_embryo_adata_scale.Gut.obs.csv              ### meta information of individual cells for posterior embryo subset (Gut)
+### pd_somites.rds                                        ### meta information of individual cells for the somitogenesis validation dataset
+### adata_somites_NMP.obs.csv                             ### meta information of individual cells for the NMP in the validation dataset
 
 ### Section_3_kidney_mesenchyme
-### 1. Renal_adata_scale.obs.rds          ### meta information of renal subset
-### 2. Renal_CDI_adata_scale.obs.rds.     ### meta information of a subset of renal cells
+### Renal_adata_scale.obs.rds                             ### meta information of renal subset
+### Renal_CDI_adata_scale.obs.rds.                        ### meta information of a subset of renal cells
+### 
 
 ################################################
 ### Packges that are needed for the analysis ###
@@ -33,6 +41,7 @@ library(dplyr)
 library(ggplot2)
 library(viridis)
 library(Matrix)
+library(stringr)
 library(plotly)
 library(htmlwidgets)
 library(gridExtra) 

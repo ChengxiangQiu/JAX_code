@@ -124,4 +124,110 @@ p = pd_sub %>%
     ggsave(paste0(example_i, ".day_group.2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
 
+#######################################################
+### Ploting cells for before E18.75, E18.75, and P0 ###
+#######################################################
+
+### Fig. S7d
+
+source("JAX_help_code.R")
+source("JAX_color_code.R")
+
+example_i = "Renal"; print(example_i)
+
+pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
+
+day_group = rep("Early", nrow(pd))
+day_group[pd$day == "E18.75"] = "E18.75"
+day_group[pd$day == "P0"] = "P0"
+pd$day_group = as.vector(day_group)
+
+day_group_color_plate = c("Early" = "#a46cb7",
+                          "E18.75" = "#7aa457",
+                          "P0" = "#cb6a49",
+                          "Other" = "grey90")
+
+pd$tmp = if_else(pd$day_group == "Early", "Early", "Other")
+p = pd %>%
+    ggplot() +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    geom_point(data = subset(pd, tmp == 'Early'),
+               aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    theme_void() +
+    scale_color_manual(values=day_group_color_plate) +
+    theme(legend.position="none") + 
+    ggsave(paste0(example_i, "_1.png"), width = 6, height = 6, dpi = 300)
+
+pd$tmp = if_else(pd$day_group == "E18.75", "E18.75", "Other")
+p = pd %>%
+    ggplot() +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    geom_point(data = subset(pd, tmp == 'E18.75'),
+               aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    theme_void() +
+    scale_color_manual(values=day_group_color_plate) +
+    theme(legend.position="none") + 
+    ggsave(paste0(example_i, "_2.png"), width = 6, height = 6, dpi = 300)
+
+pd$tmp = if_else(pd$day_group == "P0", "P0", "Other")
+p = pd %>%
+    ggplot() +
+    geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    geom_point(data = subset(pd, tmp == 'P0'),
+               aes(x = UMAP_2d_1, y = UMAP_2d_2, color = tmp), size=0.5) +
+    theme_void() +
+    scale_color_manual(values=day_group_color_plate) +
+    theme(legend.position="none") + 
+    ggsave(paste0(example_i, "_3.png"), width = 6, height = 6, dpi = 300)
+
+
+########################################################
+### Estimating cell number from individual timepoint ###
+########################################################
+
+### normalization by the total number of cells from each stage
+
+example_i = "Renal"; print(example_i)
+
+pd_all = readRDS("df_cell.rds")
+pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
+cell_num = readRDS("cell_num_prediction.rds")
+
+x = as.vector(pd_all$day)
+x[pd_all$day == "E8.0-E8.5"] = "E8.5"
+pd_all$day = as.vector(x)
+
+day_list = names(day_color_plate)
+pd$day = factor(pd$day, levels = day_list[day_list %in% pd$day])
+pd_all$day = factor(pd_all$day, levels = day_list[day_list %in% pd_all$day])
+
+x = pd %>% group_by(day, celltype_update) %>% tally() %>% 
+    left_join(pd_all %>% group_by(day) %>% tally() %>% rename(total_n = n), by = "day") %>%
+    left_join(cell_num %>% select(day, cell_num_pred), by = "day") %>%
+    mutate(estimated_num_log2 = log2(ceiling(cell_num_pred*n/total_n))) %>%
+    mutate(normalized_num_log2 = log2(ceiling(100000*n/total_n))) 
+
+x$day = factor(x$day, levels = day_list[day_list %in% x$day])
+x$celltype_update = factor(x$celltype_update, levels = names(renal_color_plate))
+
+x$day_value = as.vector(x$day)
+x$day_value[x$day == "P0"] = "E19"
+x$day_value = as.numeric(gsub("E","",x$day_value))
+
+x_first_day = x %>% group_by(celltype_update) %>% filter(n >= 10) %>% 
+    slice_min(order_by = day_value, n = 1) %>% mutate(first_day_value = day_value)
+
+x_sub = x %>% left_join(x_first_day %>% select(celltype_update, first_day_value), by = "celltype_update") %>%
+    filter(day_value >= first_day_value)
+
+### Fig. S7b
+p = x_sub %>% 
+    ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
+    geom_bar(stat='identity') + facet_grid(rows = vars(celltype_update)) + 
+    labs(x='',y='Log2(Estimated # of cells)') +
+    scale_fill_manual(values=renal_color_plate) +
+    theme_classic(base_size = 10) +
+    theme(legend.position="none") +
+    theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1, vjust = 0.5), axis.text.y = element_text(color="black"))
+
 

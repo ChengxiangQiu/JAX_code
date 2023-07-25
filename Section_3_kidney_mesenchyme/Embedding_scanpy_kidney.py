@@ -26,16 +26,18 @@ gc.collect()
 pdata = pd.read_csv(os.path.join(WORK_PATH, 'df_cell.csv'), index_col = 0)
 adata.obs = pdata
 
-celltype_include = ["Adrenal-gonadal primordium progenitors",
+celltype_include = ["Anterior intermediate mesoderm",
+"Collecting duct intercalated cells",
+"Connecting tubule",
+"Metanephric mesenchyme",
 "Podocytes",
 "Proximal tubule cells",
-"Renal progenitor cells",
-"Collecting duct intercalated cells",
-"Intermediate mesoderm",
 "Ascending loop of Henle",
+"Collecting duct principal cells",
 "Distal convoluted tubule",
-"Collecting duct cells",
-"Collecting duct principal cells"]
+"Nephron progenitors",
+"Posterior intermediate mesoderm",
+"Ureteric bud"]
 
 example_id = "renal"
 print(example_id)

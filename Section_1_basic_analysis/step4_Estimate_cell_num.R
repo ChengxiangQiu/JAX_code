@@ -1,6 +1,6 @@
 
 ###################################
-### Section - 1, Basci analysis ###
+### Section - 1, Basic analysis ###
 ###################################
 
 ######################################################################
@@ -98,7 +98,11 @@ source("JAX_help_code.R")
 source("JAX_color_code.R")
 
 pd = readRDS("df_cell.rds")
-### n = 11,441,407 cells retained
+### n = 11,441,407 cells
+
+x = as.vector(pd$day)
+x[pd$day == "E8.0-E8.5"] = "E8.5"
+pd$day = as.vector(x)
 
 cell_num = read.csv("cell_num_prediction.csv")
 
