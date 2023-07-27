@@ -9,12 +9,13 @@
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "posterior_embryo"
 
 i = "NMP_Mesoderm"
 
-pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
 
 ### 2D UMAP of NMPs, with cells are colored by their initial cell types (Fig. 2c)
 p = pd_x %>%
@@ -24,7 +25,7 @@ p = pd_x %>%
     theme_void() +
     scale_color_manual(values=posterior_embryo_color_plate) +
     theme(legend.position="none") + 
-    ggsave("NMPs_celltype.png", width = 4, height = 3, dpi = 300)
+    ggsave(paste0(work_path, "NMPs_celltype.png"), width = 4, height = 3, dpi = 300)
 
 ### 2D UMAP of NMPs, with cells are colored by their timepoints (Fig. 2c)
 p = pd_x %>%
@@ -34,14 +35,14 @@ p = pd_x %>%
     theme_void() +
     scale_color_manual(values=somite_color_plate) +
     theme(legend.position="none") + 
-    ggsave("NMPs_somite_count.png", width = 4, height = 3, dpi = 300)
+    ggsave(paste0(work_path, "NMPs_somite_count.png"), width = 4, height = 3, dpi = 300)
 
 ###############################
 ### Performing PCA analysis ###
 ###############################
 
-gene_count = readRDS("posterior_embryo_gene_count.rds")
-gene_count_x = gene_count[,rownames(pd_x)]
+mouse_gene_sub = mouse_gene[(mouse_gene$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & mouse_gene$chr %in% paste0("chr", c(1:19, "M")),]
+gene_count_x = doExtractData(pd_x, mouse_gene_sub)
 obj_x = CreateSeuratObject(gene_count_x, meta.data = pd_x)
 
 npcs = 30
@@ -86,7 +87,7 @@ fig = plot_ly(pd_x, x=~PC_1, y=~PC_2, z=~PC_3, size = I(30), color = ~celltype_u
                         yaxis=list(title = list(text ='PC_2 (13.9%)', font = t1), tickfont = t2),
                         zaxis=list(title = list(text ='PC_3 (11.1%)', font = t1), tickfont = t2),
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))))
-saveWidget(fig, paste0(example_i, "_NMP_Mesoderm_PCA_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
+saveWidget(fig, paste0(work_path, example_i, "_NMP_Mesoderm_PCA_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
 
 #################################################################################
 ### making scatter plot between each PCs and gene expression or somite counts ###

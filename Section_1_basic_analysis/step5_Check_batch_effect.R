@@ -10,7 +10,9 @@
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = readRDS("df_cell.rds")
+work_path = "./"
+
+pd = readRDS(paste0(work_path, "df_cell.rds"))
 ### n = 11,441,407 cells
 
 x = as.vector(pd$day)

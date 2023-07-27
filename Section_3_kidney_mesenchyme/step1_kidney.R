@@ -3,16 +3,17 @@
 ### Section - 3, Kidney_mesenchyme ###
 ######################################
 
-####################################
-### Making 2D UMAP visualization ###
-####################################
+####################################################
+### Making 2D UMAP visualization of Kidney cells ###
+####################################################
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "Renal"; print(example_i)
 
-pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
+pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
 ### Fig. 3a
 p = pd %>%
@@ -22,7 +23,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=renal_color_plate) +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, ".2D_UMAP.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, ".2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
 
 ### Fig. 3b
@@ -61,7 +62,7 @@ p = pd_sub %>%
     scale_color_manual(values=day_color_plate_2) +
     theme_void() +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, ".day_group.2D_UMAP.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, ".day_group.2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
 
 
@@ -76,10 +77,11 @@ p = pd_sub %>%
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "Renal_CDI"
 
-pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
+pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
 ### Fig. 3d
 p = pd %>%
@@ -89,7 +91,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=renal_color_plate) +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, ".2D_UMAP.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, ".2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
 
 day_group = rep("Before E15", nrow(pd))
@@ -121,7 +123,7 @@ p = pd_sub %>%
     scale_color_manual(values=day_color_plate_2) +
     theme_void() +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, ".day_group.2D_UMAP.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, ".day_group.2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
 
 #######################################################
@@ -132,10 +134,11 @@ p = pd_sub %>%
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "Renal"; print(example_i)
 
-pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
+pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
 day_group = rep("Early", nrow(pd))
 day_group[pd$day == "E18.75"] = "E18.75"
@@ -156,7 +159,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=day_group_color_plate) +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, "_1.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, "_1.png"), width = 6, height = 6, dpi = 300)
 
 pd$tmp = if_else(pd$day_group == "E18.75", "E18.75", "Other")
 p = pd %>%
@@ -167,7 +170,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=day_group_color_plate) +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, "_2.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, "_2.png"), width = 6, height = 6, dpi = 300)
 
 pd$tmp = if_else(pd$day_group == "P0", "P0", "Other")
 p = pd %>%
@@ -178,7 +181,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=day_group_color_plate) +
     theme(legend.position="none") + 
-    ggsave(paste0(example_i, "_3.png"), width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, example_i, "_3.png"), width = 6, height = 6, dpi = 300)
 
 
 ########################################################
@@ -189,9 +192,9 @@ p = pd %>%
 
 example_i = "Renal"; print(example_i)
 
-pd_all = readRDS("df_cell.rds")
-pd = readRDS(paste0(example_i, "_adata_scale.obs.rds"))
-cell_num = readRDS("cell_num_prediction.rds")
+pd_all = readRDS(paste0(work_path, "df_cell.rds"))
+pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
+cell_num = readRDS(paste0(work_path, "cell_num_prediction.rds"))
 
 x = as.vector(pd_all$day)
 x[pd_all$day == "E8.0-E8.5"] = "E8.5"

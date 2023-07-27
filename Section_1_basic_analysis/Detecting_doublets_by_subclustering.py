@@ -7,37 +7,39 @@ import numpy as np
 import scrublet as scr
 import os, sys
 
-os.mkdir("doublet_cluster")
+WORK_PATH = "./"
+
+os.mkdir(os.path.join(WORK_PATH, "doublet_cluster"))
 
 fdata = pd.read_csv("df_gene.csv", index_col = 0)
 
-adata1 = sc.read_mtx('gene_count_1.mtx')
-pdata1 = pd.read_csv('df_cell_1.csv', index_col = 0)
+adata1 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_1.mtx'))
+pdata1 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_1.csv'), index_col = 0)
 adata1.obs = pdata1
 adata1.var = fdata
 
-adata2 = sc.read_mtx('gene_count_2.mtx')
-pdata2 = pd.read_csv('df_cell_2.csv', index_col = 0)
+adata2 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_2.mtx'))
+pdata2 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_2.csv'), index_col = 0)
 adata2.obs = pdata2
 adata2.var = fdata
 
-adata3 = sc.read_mtx('gene_count_3.mtx')
-pdata3 = pd.read_csv('df_cell_3.csv', index_col = 0)
+adata3 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_3.mtx'))
+pdata3 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_3.csv', index_col = 0))
 adata3.obs = pdata3
 adata3.var = fdata
 
-adata4 = sc.read_mtx('gene_count_4.mtx')
-pdata4 = pd.read_csv('df_cell_4.csv', index_col = 0)
+adata4 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_4.mtx'))
+pdata4 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_4.csv', index_col = 0))
 adata4.obs = pdata4
 adata4.var = fdata
 
-adata5 = sc.read_mtx('gene_count_5.mtx')
-pdata5 = pd.read_csv('df_cell_5.csv', index_col = 0)
+adata5 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_5.mtx'))
+pdata5 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_5.csv', index_col = 0))
 adata5.obs = pdata5
 adata5.var = fdata
 
-adata6 = sc.read_mtx('gene_count_6.mtx')
-pdata6 = pd.read_csv('df_cell_6.csv', index_col = 0)
+adata6 = sc.read_mtx(os.path.join(WORK_PATH, 'gene_count_6.mtx'))
+pdata6 = pd.read_csv(os.path.join(WORK_PATH, 'df_cell_6.csv', index_col = 0))
 adata6.obs = pdata6
 adata6.var = fdata
 
@@ -68,7 +70,7 @@ sc.tl.umap(adata, min_dist=0.1)
 adata.obs['umap_1'] = list(adata.obsm['X_umap'][:,0])
 adata.obs['umap_2'] = list(adata.obsm['X_umap'][:,1])
 name = "global.csv"
-adata.obs.to_csv(os.path.join('doublet_cluster', name))
+adata.obs.to_csv(os.path.join(WORK_PATH, 'doublet_cluster', name))
 
 obs_all = adata.obs
 obs_all['louvain'].value_counts()
@@ -99,7 +101,7 @@ for cnt in range(len(cluster_list)):
     adata.obs['umap_1'] = list(adata.obsm['X_umap'][:,0])
     adata.obs['umap_2'] = list(adata.obsm['X_umap'][:,1])
     name = 'adata.obs.louvain_' + cluster + '.csv'
-    adata.obs.to_csv(os.path.join('doublet_cluster', name))
+    adata.obs.to_csv(os.path.join(WORK_PATH, 'doublet_cluster', name))
 
 
 

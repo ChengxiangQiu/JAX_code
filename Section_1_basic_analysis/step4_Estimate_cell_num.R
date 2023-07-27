@@ -7,6 +7,8 @@
 ### Estimating absolute number of cells from individual timepoints ###
 ######################################################################
 
+work_path = "./"
+
 ### Cell number estimated by qPCR experiment (million)
 cell_num = c("E8.5" = 0.21,
              "E9.5" = 0.94,
@@ -87,7 +89,7 @@ doubling_time = 24*2/(2^d_function(x_axis))
 df_x$doubling_time = doubling_time
 df_x$x_axis = x_axis
 
-write.csv(df_x, "cell_num_prediction.csv")
+write.csv(df_x, paste0(work_path, "cell_num_prediction.csv"))
 
 
 ################################################################################################
@@ -97,14 +99,16 @@ write.csv(df_x, "cell_num_prediction.csv")
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = readRDS("df_cell.rds")
+work_path = "./"
+
+pd = readRDS(paste0(work_path, "df_cell.rds"))
 ### n = 11,441,407 cells
 
 x = as.vector(pd$day)
 x[pd$day == "E8.0-E8.5"] = "E8.5"
 pd$day = as.vector(x)
 
-cell_num = read.csv("cell_num_prediction.csv")
+cell_num = read.csv(paste0(work_path, "cell_num_prediction.csv"))
 
 df = pd %>%
     group_by(day, major_trajectory) %>%
@@ -151,7 +155,7 @@ p = ggplot() +
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black", angle = 90, hjust = 1), axis.text.y = element_text(color="black"))
 
-pdf("Cell_composition_over_time.pdf", 7, 5)
+pdf(paste0(work_path, "Cell_composition_over_time.pdf"), 7, 5)
 print(p)
 dev.off()
 

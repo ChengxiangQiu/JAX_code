@@ -9,10 +9,11 @@
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "posterior_embryo"
 
-pd = read.csv(paste0(example_i, "_adata_scale.obs.csv"), header=T, row.names=1, as.is=T)
+pd = read.csv(paste0(work_path, example_i, "_adata_scale.obs.csv"), header=T, row.names=1, as.is=T)
 rownames(pd) = as.vector(pd$cell_id)
 pd$somite_count = factor(pd$somite_count, levels = names(somite_color_plate))
 
@@ -22,7 +23,7 @@ fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~cellty
                         yaxis=list(title = list(text ='UMAP_2', font = t1), tickfont = t2),
                         zaxis=list(title = list(text ='UMAP_3', font = t1), tickfont = t2),
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))))
-saveWidget(fig, paste0(example_i, "_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
+saveWidget(fig, paste0(work_path, example_i, "_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
 
 ### making 3D UMAP, with cells are colored by somite counts (Fig. 2b)
 fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~somite_count, colors = somite_color_plate) %>% 
@@ -30,7 +31,7 @@ fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~somite
                         yaxis=list(title = list(text ='UMAP_2', font = t1), tickfont = t2),
                         zaxis=list(title = list(text ='UMAP_3', font = t1), tickfont = t2),
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))))
-saveWidget(fig, paste0(example_i, "_somite_count.html"), selfcontained = FALSE, libdir = "tmp")
+saveWidget(fig, paste0(work_path, example_i, "_somite_count.html"), selfcontained = FALSE, libdir = "tmp")
 
 
 

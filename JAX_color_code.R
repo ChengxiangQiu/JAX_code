@@ -99,79 +99,6 @@ renal_color_plate = c("Posterior intermediate mesoderm"    = "#A6CEE3",
                       "Distal convoluted tubule"           = "#FFFF99",
                       "Connecting tubule"                  = "#B15928")
 
-#######################
-### eye color plate ###
-#######################
-
-eye_color_plate = c("Eye field"                            = '#6d8840', 
-                    "Retinal pigment cells"                = '#c95493',
-                    "Naive retinal progenitor cells"       = "#A6CEE3",
-                    "Retinal progenitor cells"             = "#1F78B4",
-                    "Bipolar precursor cells"              = "#B2DF8A",
-                    "Ciliary margin cells"                 = "#33A02C",
-                    "Photoreceptor precursor cells"        = "#FB9A99",
-                    "Cone precursor cells"                 = "#E31A1C",
-                    "Rod precursor cells"                  = "#FDBF6F",
-                    "Retinal ganglion cells"               = "#FF7F00",
-                    "PV-containing retinal ganglion cells" = "#CAB2D6",
-                    "Amacrine/Horizontal precursor cells"  = "#6A3D9A",
-                    "Amacrine cells"                       = "#FFFF99",
-                    "Horizontal cells"                     = "#B15928",
-                    "Cholinergic amacrine cells"           = "#808080")
-
-##########################
-### neuron color plate ###
-##########################
-
-neuron_color_plate = c("Spinal dI1 interneurons"                = '#636EFA',
-                       "Spinal dI2 interneurons"                = '#EF553B',
-                       "Spinal dI3 interneurons"                = '#00CC96',
-                       "Spinal dI4 interneurons"                = '#AB63FA',
-                       "Spinal dI5 interneurons"                = '#FFA15A',
-                       "Spinal dI6 interneurons"                = '#19D3F3',
-                       "Spinal V0 interneurons"                 = '#FF6692',
-                       "Spinal V1 interneurons"                 = '#B6E880',
-                       "Spinal V2a interneurons"                = '#FECB52',
-                       "Spinal V2b interneurons"                = '#1F77B4',
-                       "Spinal V3 interneurons"                 = '#FF7F0E',
-                       "Di/mesencephalon glutamatergic neurons" = '#2CA02C',
-                       "Striatal projection neurons"            = '#9467BD',
-                       "Precerebellar neurons"                  = '#8C564B',
-                       "Di/mesencephalon GABAergic neurons"     = '#E377C2',
-                       "Hypothalamic Sim1 neurons"              = '#7F7F7F',
-                       "Midbrain dopaminergic neurons"          = '#BCBD22',
-                       "Spinal cord motor neuron progenitors"   = '#17BECF',
-                       "Spinal cord motor neurons"              = "#17BECF",
-                       
-                       "Anterior floor plate"        = "#9a632b",
-                       "Anterior roof plate"         = "#b1c4d9",
-                       "Diencephalon"                = "#9e3136",
-                       "Dorsal telencephalon"        = "#93d6b6",
-                       "Hindbrain"                   = "#8f366c",
-                       "Hypothalamus"                = "#848b38",
-                       "Hypothalamus (Sim1+)"        = "#52288d",
-                       "Mesencephalon"               = "#d3c398",
-                       "Midbrain-hindbrain boundary" = "#3d2945",
-                       "Posterior floor plate"       = "#b898c9",
-                       "Posterior roof plate"        = "#363d27",
-                       "Spinal cord/r7/r8"           = "#467d4e",
-                       "Telencephalon"               = "#d98f90",
-                       
-                       "Astrocytes"                         = "#504d84",
-                       "Cajal-Retzius cells"                = "#cfd98e",
-                       "Choroid plexus"                     = "#692135",
-                       "Cranial motor neurons"              = "#65e3be",
-                       "Eye field"                          = "#c15a34",
-                       "GABAergic cortical interneurons"    = "#e8afd6",
-                       "Intermediate progenitors"           = "#45251f",
-                       "Neural progenitor cells (Neurod1+)" = "#d7c1b7",
-                       "Neurons (Slc17a8+)"                 = "#437a7d",
-                       "Thalamic neuronal precursors"       = "#5f5b28")
-
-astrocytes_color_plate = c("VA1 astrocytes"      = "#9ac25e",
-                           "VA2 astrocytes"      = "#b35948",
-                           "VA3 astrocytes"      = "#b98b3a",
-                           "Anterior astrocytes" = "#8d50a9")
 
 ##########################################
 ### lateral plate mesoderm color plate ###
@@ -200,38 +127,114 @@ LPM_color_plate = c("Splanchnic mesoderm"                   = "#ca47cc",
                     "Proepicardium"                         = "#5b6180",
                     "Mesothelial cells"                     = "#3a5440")
 
-LPM_E85_color_plate = c("Anterior intermediate mesoderm"          = "#1F78B4",
-                        "Dermomyotome"                            = "#c3d34c",
-                        "Facial mesenchyme"                       = "#7cd49d",
-                        "Limb mesenchyme progenitors"             = "#ccc296",
-                        "First heart field"                       = "#d85091",
-                        "Lateral plate and intermediate mesoderm" = "#7d5a3b",
-                        "Mesodermal progenitors (Tbx6+)"          = "#38503a",
-                        "Posterior intermediate mesoderm"         = "#A6CEE3",
-                        "Sclerotome"                              = "#d098ab",
-                        "Second heart field"                      = "#3d2130",
-                        "FM:Cranial neural crest"                 = "#46de65",
-                        "FM:Cranial paraxial mesoderm"            = "#cc6e48",
-                        "FM:Frontonasal prominence"               = "#ff316c",
-                        "FM:Mandibular prominence"                = "#746900",
-                        "FM:Maxillary prominence"                 = "#9e71bf",
-                        "LPM:Allantois"                           = "#8f3e7f",
-                        "LPM:Amniotic mesoderm"                   = "#587f3a",
-                        "LPM:Cardiopharyngeal mesoderm"           = "#3f2b71",
-                        "LPM:Extraembryonic mesoderm"             = "#d58d40",
-                        "LPM:Foregut mesenchyme"                  = "#983b40",
-                        "LPM:Gut mesenchyme"                      = "#79bec6",
-                        "LPM:Hepatic mesenchyme"                  = "#663fc6",
-                        "LPM:Proepicardium"                       = "#5b6180",
-                        "LPM:Renal pericytes and mesangial cells" = "#d94e38",
-                        "LPM:Somatic mesoderm"                    = "#7d9cd9",
-                        "LPM:Splanchnic mesoderm"                 = "#ca47cc",
-                        "Neuromesodermal progenitors"             = "#cb566d",
-                        "LPM:Gonad progenitor cells"              = "#42222e",
-                        "LPM:Lung mesenchyme"                     = "#6dd251",
-                        "LPM:Meninges"                            = "#6ad39e",
-                        "LPM:Vascular smooth muscle cells"        = "#c1bf5a",
-                        "LPM:Mesothelial cells"                   = "#3a5440")
+LPM_E85_color_plate = c("Anterior intermediate mesoderm"               = "#1F78B4",
+                        "First heart field"                            = "#d85091",
+                        "Lateral plate and intermediate mesoderm"      = "#7d5a3b",
+                        "Mesodermal progenitors (Tbx6+)"               = "#38503a",
+                        "Posterior intermediate mesoderm"              = "#A6CEE3",
+                        "Second heart field"                           = "#3d2130",
+                        "LPM:Allantois"                                = "#8f3e7f",
+                        "LPM:Amniotic mesoderm"                        = "#587f3a",
+                        "LPM:Cardiopharyngeal mesoderm"                = "#3f2b71",
+                        "LPM:Extraembryonic mesoderm"                  = "#d58d40",
+                        "LPM:Foregut mesenchyme"                       = "#983b40",
+                        "LPM:Gut mesenchyme"                           = "#79bec6",
+                        "LPM:Hepatic mesenchyme"                       = "#663fc6",
+                        "LPM:Proepicardium"                            = "#5b6180",
+                        "LPM:Renal pericytes and mesangial cells"      = "#d94e38",
+                        "LPM:Somatic mesoderm"                         = "#7d9cd9",
+                        "LPM:Splanchnic mesoderm"                      = "#ca47cc",
+                        "NMPs and spinal cord progenitors"             = "#cb566d",
+                        "LPM:Gonad progenitor cells"                   = "#42222e",
+                        "LPM:Lung mesenchyme"                          = "#6dd251",
+                        "LPM:Meninges"                                 = "#6ad39e",
+                        "LPM:Vascular smooth muscle cells"             = "#c1bf5a",
+                        "LPM:Mesothelial cells"                        = "#3a5440")
+
+
+#######################
+### eye color plate ###
+#######################
+
+eye_color_plate = c("Eye field"                            = '#6d8840', 
+                    "Retinal pigment cells"                = '#c95493',
+                    "Naive retinal progenitor cells"       = "#A6CEE3",
+                    "Retinal progenitor cells"             = "#1F78B4",
+                    "Bipolar precursor cells"              = "#B2DF8A",
+                    "Ciliary margin cells"                 = "#33A02C",
+                    "Photoreceptor precursor cells"        = "#FB9A99",
+                    "Cone precursor cells"                 = "#E31A1C",
+                    "Rod precursor cells"                  = "#FDBF6F",
+                    "Retinal ganglion cells"               = "#FF7F00",
+                    "PV-containing retinal ganglion cells" = "#CAB2D6",
+                    "Amacrine/Horizontal precursor cells"  = "#6A3D9A",
+                    "Amacrine cells"                       = "#FFFF99",
+                    "Horizontal cells"                     = "#B15928",
+                    "Cholinergic amacrine cells"           = "#808080")
+
+#################################
+### neuroectoderm color plate ###
+#################################
+
+neuroectoderm_color_plate = c("Spinal dI1 interneurons"                = '#636EFA',
+                              "Spinal dI2 interneurons"                = '#EF553B',
+                              "Spinal dI3 interneurons"                = '#00CC96',
+                              "Spinal dI4 interneurons"                = '#AB63FA',
+                              "Spinal dI5 interneurons"                = '#FFA15A',
+                              "Spinal dI6 interneurons"                = '#19D3F3',
+                              "Spinal V0 interneurons"                 = '#FF6692',
+                              "Spinal V1 interneurons"                 = '#B6E880',
+                              "Spinal V2a interneurons"                = '#FECB52',
+                              "Spinal V2b interneurons"                = '#1F77B4',
+                              "Spinal V3 interneurons"                 = '#FF7F0E',
+                              "Di/mesencephalon glutamatergic neurons" = '#2CA02C',
+                              "Striatal projection neurons"            = '#9467BD',
+                              "Precerebellar neurons"                  = '#8C564B',
+                              "Di/mesencephalon GABAergic neurons"     = '#E377C2',
+                              "Hypothalamic Sim1 neurons"              = '#7F7F7F',
+                              "Midbrain dopaminergic neurons"          = '#BCBD22',
+                              "Spinal cord motor neuron progenitors"   = '#17BECF',
+                              "Spinal cord motor neurons"              = "#17BECF",
+                              
+                              "Anterior floor plate"                   = "#9a632b",
+                              "Anterior roof plate"                    = "#b1c4d9",
+                              "Diencephalon"                           = "#9e3136",
+                              "Dorsal telencephalon"                   = "#93d6b6",
+                              "Hindbrain"                              = "#8f366c",
+                              "Hypothalamus"                           = "#848b38",
+                              "Hypothalamus (Sim1+)"                   = "#52288d",
+                              "Midbrain"                               = "#d3c398",
+                              "Midbrain-hindbrain boundary"            = "#3d2945",
+                              "Floorplate and p3 domain"               = "#b898c9",
+                              "Posterior roof plate"                   = "#363d27",
+                              "Spinal cord/r7/r8"                      = "#467d4e",
+                              "Telencephalon"                          = "#d98f90",
+                                  
+                              "Astrocytes"                             = "#504d84",
+                              "Cajal-Retzius cells"                    = "#cfd98e",
+                              "Choroid plexus"                         = "#692135",
+                              "Cranial motor neurons"                  = "#65e3be",
+                              "Eye field"                              = "#c15a34",
+                              "GABAergic cortical interneurons"        = "#e8afd6",
+                              "Intermediate progenitors"               = "#45251f",
+                              "Neural progenitor cells (Neurod1+)"     = "#d7c1b7",
+                              "Neurons (Slc17a8+)"                     = "#437a7d",
+                              "Thalamic neuronal precursors"           = "#5f5b28")
+
+astrocytes_color_plate = c("VA1 astrocytes"      = "#9ac25e",
+                           "VA2 astrocytes"      = "#b35948",
+                           "VA3 astrocytes"      = "#b98b3a",
+                           "Anterior astrocytes" = "#8d50a9")
+
+neuron_day_color_plate = rev(c("#fcffa4", "#f2ea69", "#f9cb35", "#fcac11", "#f98e09", 
+                               "#f1731d", "#e45a31", "#d24644", "#bc3754", "#a32c61", 
+                               "#8a226a", "#71196e", "#57106e", "#3d0965", "#210c4a", "#0b0724", "#000004"))
+
+names(neuron_day_color_plate) = c("E8.75", "E9.0", "E9.25", "E9.5", "E9.75", "E10.0", "E10.25", 
+                                  "E10.5", "E10.75", "E11.0", "E11.25", "E11.5", "E11.75", "E12.0", 
+                                  "E12.25", "E12.5", "E12.75")
+
+
 
 ################################
 ### Birth-series color plate ###

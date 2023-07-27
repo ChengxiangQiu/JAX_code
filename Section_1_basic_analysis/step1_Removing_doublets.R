@@ -24,6 +24,8 @@
 ### The file run_16_RT-sci-samplesheet.csv contains the RT barcode information for individual cells. 
 ### In this example, we used the run_16 data, but this script can be used for any experiment.
 
+work_path = "./"
+
 load("sci_summary.RData")
 ### It will load three profiles, gene_count, df_cell, and df_gene
 
@@ -32,7 +34,7 @@ rownames(gene_count) = unlist(lapply(rownames(gene_count), function(x) strsplit(
 df_gene$gene_id      = unlist(lapply(as.vector(df_gene$gene_id), function(x) strsplit(x,"[.]")[[1]][1]))
 
 ### read RT_barcode to extract RT_group for each individual cell
-RT_barcode = read.csv("run_16_RT-sci-samplesheet.csv", as.is=T, header=T)
+RT_barcode = read.csv(paste0(work_path, "run_16_RT-sci-samplesheet.csv"), as.is=T, header=T)
 names(RT_barcode) = c("RT_barcode_well", "RT_barcode_sequence", "RT_group", "genome")
 
 df_cell$RT_barcode_sequence = str_sub(unlist(lapply(as.vector(df_cell$sample), function(x) strsplit(x,"[.]")[[1]][2])), -10, -1)
@@ -72,8 +74,8 @@ rownames(df_cell) = as.vector(df_cell$sample)
 
 print(dim(gene_count))
 
-saveRDS(gene_count, "gene_count.rds")
-saveRDS(df_cell, "df_cell.rds")
+saveRDS(gene_count, paste0(work_path, "gene_count.rds"))
+saveRDS(df_cell, paste0(work_path, "df_cell.rds"))
 
 print(nrow(df_cell))
 print(median(df_cell$UMI_count))
@@ -96,8 +98,8 @@ print(sum(is.na(df_cell$RT_group)))
 n = 6
 df_cell$split_batch = sample(c(1:n), nrow(df_cell), replace = T)
 
-gene_count = readRDS("gene_count.rds")
-df_cell = readRDS("df_cell.rds")
+gene_count = readRDS(paste0(work_path, "gene_count.rds"))
+df_cell = readRDS(paste0(work_path, "df_cell.rds"))
 df_cell = df_cell[colnames(gene_count),]
 
 for(i in 1:n){
@@ -106,8 +108,8 @@ for(i in 1:n){
     
     print(sum(colnames(gene_count_i) != rownames(df_cell_i)))
     
-    writeMM(t(gene_count_i), paste0("gene_count_", i, ".mtx"))
-    write.csv(df_cell_i, paste0("df_cell_", i, ".csv"))
+    writeMM(t(gene_count_i), paste0(work_path, "gene_count_", i, ".mtx"))
+    write.csv(df_cell_i, paste0(work_path, "df_cell_", i, ".csv"))
 }
 
 ### python Run_Scrublet.py
@@ -115,7 +117,7 @@ for(i in 1:n){
 df = NULL
 for(i in 1:n){
     print(i)
-    df_i = read.csv(paste0("df_cell_", i, ".csv"), header=T, row.names=1, as.is=T)
+    df_i = read.csv(paste0(work_path, "df_cell_", i, ".csv"), header=T, row.names=1, as.is=T)
     
     doublet_scores_observed_cells_i = read.csv(paste0("doublet_scores_observed_cells_", i, ".csv"), header=F)
     df_i$doublet_score = as.vector(doublet_scores_observed_cells_i$V1)
@@ -133,14 +135,14 @@ df_cell$detected_doublets = df_cell$doublet_score > 0.2
 
 ### python Detecting_doublets_by_subclustering.py
 
-global = read.csv("doublet_cluster/global.csv", header=T)
+global = read.csv(paste0(work_path, "doublet_cluster/global.csv"), header=T)
 main_cluster_list = sort(as.vector(unique(global$louvain)))
 
 res = NULL
 
 for(i in 1:length(main_cluster_list)){
     print(paste0(i, "/", length(main_cluster_list)))
-    dat = read.csv(paste0("doublet_cluster/adata.obs.louvain_", (i-1), ".csv"), header=T)
+    dat = read.csv(paste0(work_path, "doublet_cluster/adata.obs.louvain_", (i-1), ".csv"), header=T)
     print(nrow(dat))
     dat$louvain = as.vector(paste0("cluster_", dat$louvain))
     dat = dat %>%
@@ -171,7 +173,7 @@ rownames(res) = as.vector(res$sample)
 res = res[rownames(df_cell),]
 df_cell$doublet_cluster = res$doublet_cluster
 
-saveRDS(df_cell, "df_cell.rds")
+saveRDS(df_cell, paste0(work_path, "df_cell.rds"))
 
 ################################################################################
 ### Step-3, we found that the above Scrublet and iterative clustering based approach has difficulty identifying doublets in clusters derived from rare cell types (e.g. clusters comprising less than 1% of the total cell population), so we applied a third step to further detect and remove doublets.
@@ -192,9 +194,11 @@ import("louvain")
 print(packageVersion('monocle'))
 ### monocle 2.99
 
-count = readRDS("gene_count.rds")
-pd = readRDS("df_cell.rds")
-fd = read.csv("df_gene_all.csv", header=T, row.names=1, as.is=T)
+work_path = "./"
+
+count = readRDS(paste0(work_path, "gene_count.rds"))
+pd = readRDS(paste0(work_path, "df_cell.rds"))
+fd = read.csv(paste0(work_path, "df_gene_all.csv"), header=T, row.names=1, as.is=T)
 
 ### For each cell, we only retain protein-coding genes, lincRNA genes and pseudogenes
 fd = fd[(fd$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & 
@@ -235,7 +239,7 @@ cds <- newCellDataSet(count,
                       featureData =fData,
                       expressionFamily = negbinomial.size())
 
-saveRDS(cds, "monocle_cds_alpha_1.rds")
+saveRDS(cds, paste0(work_path, "monocle_cds_alpha_1.rds"))
 
 DelayedArray:::set_verbose_block_processing(TRUE)
 options(DelayedArray.block.size=1000e6)
@@ -270,7 +274,7 @@ cds <- clusterCells(cds,
 
 cds <- partitionCells(cds)
 
-saveRDS(cds, "monocle_cds_alpha_2.rds")
+saveRDS(cds, paste0(work_path, "monocle_cds_alpha_2.rds"))
 
 jpeg("louvain_component.jpeg", width=10, height=8, units = 'in', res=300)
 plot_cell_clusters(cds,
@@ -283,14 +287,16 @@ dev.off()
 
 saveRDS(list(count = exprs(cds),
              pd = data.frame(pData(cds)),
-             fd = data.frame(fData(cds))), "dat_2.rds")
+             fd = data.frame(fData(cds))), paste0(work_path, "dat_2.rds"))
 
 ### We took the cell clusters identified by Monocle/3, downsampled each cluster to 2,500 cells, and computed differentially expressed genes across cell clusters with the top_markers function of Monocle/3 (reference_cells=1000).
 ### We selected a gene set combining the top ten gene markers for each cell cluster (filtering out genes with fraction_expressing < 0.1 and then ordering by pseudo_R2).
 
 library(monocle3) ### Of note, this is done by Monocle/3, rather than Monocle/3-alpha
 
-dat = readRDS("dat_2.rds")
+work_path = "./"
+
+dat = readRDS(paste0(work_path, "dat_2.rds"))
 exp = dat[['count']]
 pd = dat[['pd']]
 fd = dat[['fd']]
@@ -330,7 +336,7 @@ markers <- marker_test_res %>%
     group_by(cell_group) %>%
     top_n(10, pseudo_R2)
 
-saveRDS(markers, file="marker_top10.rds")
+saveRDS(markers, file=paste0(work_path, "marker_top10.rds"))
 
 ### Cells from each main cell cluster were subjected to dimensionality reduction by PCA (10 components) on the selected set of top cluster-specific gene markers.
 ### Each cell cluster was further reduced to 2D using UMAP (max_components = 2, n_neighbors = 50, min_dist = 0.1, metric = 'cosine'). 
@@ -350,7 +356,9 @@ import("louvain")
 print(packageVersion('monocle'))
 ### monocle 2.99
 
-dat = readRDS("dat_2.rds")
+work_path = "./"
+
+dat = readRDS(paste0(work_path, "dat_2.rds"))
 exp = dat[['count']]
 pd = dat[['pd']]
 fd = dat[['fd']]
@@ -359,7 +367,7 @@ pd$myCluster = paste0('cluster_', pd$louvain_component)
 cluster_list = as.vector(unique(pd$myCluster))
 cluster_list = paste0("cluster_", 1:length(cluster_list))
 
-markers = readRDS(paste0(WORK_PATH, "/marker_top10.rds"))
+markers = readRDS(paste0(work_path, "/marker_top10.rds"))
 
 for(i in 1:length(cluster_list)){
     
@@ -401,7 +409,7 @@ for(i in 1:length(cluster_list)){
     for(j in 1:length(cluster_list)){
         cluster_j = cluster_list[j]; print(cluster_j)
         markers_sub = markers %>% filter(cell_group == cluster_j)
-        jpeg(paste0('doublet_cluster_2/', cluster_i, "_", cluster_j, '.jpeg'), width=10, height=8, units = 'in', res=300)
+        jpeg(paste0(work_path, 'doublet_cluster_2/', cluster_i, "_", cluster_j, '.jpeg'), width=10, height=8, units = 'in', res=300)
         print(plot_cell_clusters(cds_subset,
                                  markers = as.character(markers_sub$gene_short_name),
                                  cell_size = 0.5))
@@ -412,11 +420,11 @@ for(i in 1:length(cluster_list)){
                            color_by = 'doublet_score',
                            cell_size = 0.8) + scale_color_viridis() 
     
-    jpeg(paste0('doublet_cluster_2/', cluster_i, '_doublet_score.jpeg'), width=10, height=10, units = 'in', res=300)
+    jpeg(paste0(work_path, 'doublet_cluster_2/', cluster_i, '_doublet_score.jpeg'), width=10, height=10, units = 'in', res=300)
     print(p)
     dev.off()
     
-    saveRDS(cds_subset, paste0('doublet_cluster_2/', cluster_i, '.rds'))
+    saveRDS(cds_subset, paste0(work_path, 'doublet_cluster_2/', cluster_i, '.rds'))
     
     ### testing different clustering parameters
     if(nrow(pData(cds_subset)) > 50000){
@@ -447,14 +455,14 @@ for(i in 1:length(cluster_list)){
             cds_subset$cluster_3 = cds_subset$Cluster
         }
         
-        saveRDS(data.frame(pData(cds_subset)), paste0('doublet_cluster_2/',  cluster_i, '_pd.rds'))
+        saveRDS(data.frame(pData(cds_subset)), paste0(work_path, 'doublet_cluster_2/',  cluster_i, '_pd.rds'))
         
         p = plot_cell_clusters(cds_subset,
                                color_by = 'Cluster',
                                cell_size = 1,
                                show_group_id = T) + theme(legend.position="none")
         
-        jpeg(paste0('doublet_cluster_2/', cluster_i, "_res_", xx, '.jpeg'), width=10, height=10, units = 'in', res=300)
+        jpeg(paste0(work_path, 'doublet_cluster_2/', cluster_i, "_res_", xx, '.jpeg'), width=10, height=10, units = 'in', res=300)
         print(p)
         dev.off()
         
@@ -463,7 +471,7 @@ for(i in 1:length(cluster_list)){
         p = ggplot(pd, aes(factor(Cluster), doublet_score)) +
             geom_boxplot() +
             coord_flip() 
-        jpeg(paste0('doublet_cluster_2/', cluster_i, "_boxplot_res_", xx, '.jpeg'), width=10, height=15, units = 'in', res=300)
+        jpeg(paste0(work_path, 'doublet_cluster_2/', cluster_i, "_boxplot_res_", xx, '.jpeg'), width=10, height=15, units = 'in', res=300)
         print(p)
         dev.off()
     }
@@ -478,7 +486,7 @@ for(i in 1:length(cluster_list)){
     
     print(i)
     
-    pd_tmp = readRDS(paste0("doublet_cluster_2/cluster_", i, "_pd.rds"))
+    pd_tmp = readRDS(paste0(work_path, "doublet_cluster_2/cluster_", i, "_pd.rds"))
     
     pd_tmp$cluster_1 = as.vector(paste0("cluster_", pd_tmp$cluster_1))
     pd_tmp$cluster_2 = as.vector(paste0("cluster_", pd_tmp$cluster_2))
@@ -496,16 +504,16 @@ for(i in 1:length(cluster_list)){
     
 }
 
-saveRDS(pd_all, paste0("doublet_cluster_2/res_doubelt_DEG.rds"))
+saveRDS(pd_all, paste0(work_path, "doublet_cluster_2/res_doubelt_DEG.rds"))
 
 
 ##################################################################################
 ### Step-3, read the output of pipeline and roughly removing low quality cells ###
 ##################################################################################
 
-count = readRDS("gene_count.rds")
-pd = readRDS("df_cell.rds")
-fd = read.csv("df_gene_all.csv", header=T, row.names=1, as.is=T)
+count = readRDS(paste0(work_path, "gene_count.rds"))
+pd = readRDS(paste0(work_path, "df_cell.rds"))
+fd = read.csv(paste0(work_path, "df_gene_all.csv"), header=T, row.names=1, as.is=T)
 
 res_doublet_DEG = readRDS(paste0("doublet_cluster_2/res_doubelt_DEG.rds"))
 res_doublet_DEG = res_doublet_DEG[res_doublet_DEG$doublet_DEG,]
@@ -540,7 +548,7 @@ x2 = mean(x_tmp) + 2*sd(x_tmp)
 pd = pd[pd$log2_umi >= x1 & pd$log2_umi <= x2 & pd$EXON_pct <= 85,]
 
 ### save the final dataset with cells after removing doublets and low-quality cells
-saveRDS(pd, "pd.rds")
+saveRDS(pd, paste0(work_path, "pd.rds"))
 
 
 

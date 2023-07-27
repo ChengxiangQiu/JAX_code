@@ -17,7 +17,6 @@
 
 ### Section_2_posterior_embryo
 ### posterior_embryo_adata_scale.obs.csv                  ### meta information of individual cells for posterior embryo subset
-### posterior_embryo_gene_count.rds                       ### UMI count matrix of subset of cells for posterior embryo development
 ### posterior_embryo_adata_scale.NMP_Mesoderm.obs.csv     ### meta information of individual cells for posterior embryo subset (NMP)
 ### posterior_embryo_adata_scale.Notochord.obs.csv        ### meta information of individual cells for posterior embryo subset (Notochord)
 ### posterior_embryo_adata_scale.Gut.obs.csv              ### meta information of individual cells for posterior embryo subset (Gut)
@@ -26,8 +25,35 @@
 
 ### Section_3_kidney_mesenchyme
 ### Renal_adata_scale.obs.rds                             ### meta information of renal subset
-### Renal_CDI_adata_scale.obs.rds.                        ### meta information of a subset of renal cells
-### 
+### Renal_CDI_adata_scale.obs.rds                         ### meta information of a subset of renal cells
+### LPM_adata_scale.obs.rds                               ### meta information of lateral plate & intermediate mesoderm
+### Mosta_file_list.txt                                   ### a list of file names that downloaded from Mosta database
+
+### Section_4_eye
+### Eye_adata_scale.obs.rds                               ### meta information of eye subset
+### Eye_RGC_adata_scale.obs.rds                           ### meta information of RGCs subset
+### Eye_RGC_heatmap_dat.rds                               ### data used for plot the heatmap in Fig.4e
+### Eye_early_adata_scale.obs.rds                         ### meta information of early eay subset (<=E12.5)
+### Eye_iris_adata_scale.obs.rds                          ### meta information of iris related cells
+
+### Section_5_neuroectoderm
+### Neuroectoderm_backbone_adata_scale.obs.rds            ### meta information of neuroectoderm backbone cells (<E13.0)
+### Neuroectoderm_derivative_adata_scale.obs.rds          ### meta information of neuroectoderm and derivatives (<E13.0) 
+### Neuroectoderm_derivative_adata_scale.PCs.rds          ### PC features of neuroectoderm and derivatives (<E13.0) 
+### Neurons_adata_scale.obs.rds                           ### meta information of subclustering result of early neurons (Fig.5e)
+### INP_adata_scale.obs.rds                               ### meta information of subclustering result of intermediate neuronal progenitors major cell cluster
+### Neurons_heatmap_dat.rds                               ### data used for plot the heatmap in Fig.5f
+### Astrocytes_adata_scale.obs.rds                        ### meta information of astrocytes (Fig.S13, <E13.0)
+### Neurons_interneurons_top_TFs.csv                      ### top key TFs identified for each spinal interneurons (Fig.S14b)
+### Neurons_interneurons_overlap_TFs.csv                  ### top TFs that highly expressed in the progenitors of each spinal interneurons (Fig.S14c)
+
+### Section_6_development_tree
+
+### Section_7_birth_series
+
+
+
+
 
 ################################################
 ### Packges that are needed for the analysis ###
@@ -35,7 +61,7 @@
 
 library(monocle3)
 library(Seurat)
-require(lattice)
+library(lattice)
 library(FNN)
 library(dplyr)
 library(ggplot2)
@@ -45,6 +71,11 @@ library(stringr)
 library(plotly)
 library(htmlwidgets)
 library(gridExtra) 
+library(reshape2)
+library(gplots)
+library(RColorBrewer)
+library(rdist)
+library(ggridges)
 
 mouse_gene = read.table("mouse.v12.geneID.txt", header = T)
 rownames(mouse_gene) = as.vector(mouse_gene$gene_ID)
@@ -91,3 +122,37 @@ doObjectTransform <- function(x, transform_to = NULL){
         return(cds)
     }
 }
+
+
+##############################################################
+### Function: extract subset of cells to perform embedding ###
+##############################################################
+
+### We provided UMI count matrix for individual experiments, please download those data if you going to apply this function.
+### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/nobackup/jax/download/mtx/
+
+doExtractData <- function(df_cell, df_gene){
+    experiment_list = paste0("run_", c(4, 13, 14, 15, 16, "17_sub1", "17_sub2", 18,
+                                       19, 20, 21, 22, 23, 24, 25, 26, 27))
+    gene_count = NULL
+    for(i in experiment_list){
+        print(paste0(i, "/", length(experiment_list)))
+        
+        gene_count_tmp = Matrix::readMM(paste0("gene_count.", i, "mtx.gz"))
+        df_gene_tmp = read.csv("gene_annotation.csv.gz", row.names=1, as.is=T)
+        df_cell_tmp = read.csv(paste0("cell_annotation.", i, ".csv.gz"), row.names=1, as.is=T)
+        rownames(gene_count_tmp) = as.vector(df_gene_tmp$gene_ID)
+        colnames(gene_count_tmp) = as.vector(df_gene_tmp$cell_id)
+        
+        gene_count = cbind(gene_count, 
+                           gene_count_tmp[rownames(gene_count_tmp) %in% as.vector(df_gene$gene_ID), 
+                                          colnames(gene_count_tmp) %in% as.vector(df_cell$cell_id), drop=FALSE])
+    }
+    
+    gene_count = gene_count[,as.vector(df_cell$cell_id)]
+    return(gene_count)
+}
+
+
+
+

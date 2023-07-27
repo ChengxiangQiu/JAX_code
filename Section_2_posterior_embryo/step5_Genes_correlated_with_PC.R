@@ -9,17 +9,20 @@
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 celltype_list = c("NMP_Mesoderm", "Notochord", "Gut")
 example_i = "posterior_embryo"
 
-gene_count = readRDS("posterior_embryo_gene_count.rds")
+pd = read.csv(paste0(work_path, example_i, "_adata_scale.obs.csv"), header=T, row.names=1, as.is=T)
+mouse_gene_sub = mouse_gene[(mouse_gene$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & mouse_gene$chr %in% paste0("chr", c(1:19, "M")),]
+gene_count = doExtractData(pd, mouse_gene_sub)
 
 for(i in celltype_list){
     print(i)
     
-    pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
-    res = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA.rds"))
+    pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+    res = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA.rds"))
     emb = res[["cell.embeddings"]]
     pd_x = pd_x[rownames(emb),]
     
@@ -58,7 +61,7 @@ for(i in celltype_list){
                     PC = rep(c("PC_1", "PC_2", "PC_3"), each = 2500),
                     gene_short_name = rep(as.vector(mouse_gene_sub$gene_short_name), 3), stringsAsFactors = F)
     
-    saveRDS(df, paste0(example_i, "_adata_scale.", i, ".PCA_corr.rds"))
+    saveRDS(df, paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.rds"))
     
     ### further filter significant ones
     names(df) = c("corr", "pval", "PC", "gene_short_name")
@@ -92,7 +95,7 @@ for(i in celltype_list){
     
     df_out = rbind(df_1, df_2, df_3)
     
-    write.csv(df_out, paste0(example_i, "_adata_scale.", i, ".PCA_corr.csv"))
+    write.csv(df_out, paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.csv"))
     
 }
 
@@ -104,14 +107,15 @@ for(i in celltype_list){
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "posterior_embryo"
 
 i = "NMP_Mesoderm"
 
-pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
-gene_count = readRDS("posterior_embryo_gene_count.rds")
-gene_count_x = gene_count[,rownames(pd_x)]
+pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+mouse_gene_sub = mouse_gene[(mouse_gene$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & mouse_gene$chr %in% paste0("chr", c(1:19, "M")),]
+gene_count_x = doExtractData(pd_x, mouse_gene_sub)
 
 mouse_gene %>% filter(gene_short_name %in% c("T","Meis1"))
 
@@ -131,7 +135,7 @@ p = ggplot() +
     theme_void() +
     scale_color_manual(values=c("early"="blue", "late"="red", "no"="grey80")) +
     theme(legend.position="none") + 
-    ggsave("Early_late_NMPs.", width = 4, height = 3, dpi = 300)
+    ggsave(paste0(work_path, "Early_late_NMPs.png"), width = 4, height = 3, dpi = 300)
 
 
 ### n = 8859 cells for NMP
@@ -149,7 +153,7 @@ res %>% mutate(gene_ID = rownames(res)) %>%
     left_join(mouse_gene %>% select(gene_ID, gene_short_name), by = "gene_ID") %>%
     select(-p_val) %>%
     mutate(highly_expressed = if_else(avg_logFC > 0, "early", "late")) %>%
-    write.csv(paste0(example_i, "_adata_scale.", i, ".DEGs_early_late.csv"))
+    write.csv(paste0(work_path, example_i, "_adata_scale.", i, ".DEGs_early_late.csv"))
 
 ### filtering significant ones
 res %>% mutate(gene_ID = rownames(res)) %>%
@@ -157,7 +161,7 @@ res %>% mutate(gene_ID = rownames(res)) %>%
     filter(p_val_adj < 0.05, abs(avg_logFC) > 0.25) %>%
     select(-p_val) %>%
     mutate(highly_expressed = if_else(avg_logFC > 0, "early", "late")) %>%
-    write.csv(paste0(example_i, "_adata_scale.", i, ".DEGs_early_late_sig.csv"))
+    write.csv(paste0(work_path, example_i, "_adata_scale.", i, ".DEGs_early_late_sig.csv"))
 
 
 ##########################################################
@@ -166,29 +170,30 @@ res %>% mutate(gene_ID = rownames(res)) %>%
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
 example_i = "posterior_embryo"
 
 i = "NMP_Mesoderm"
-df_all_1 = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA_corr.rds"))
+df_all_1 = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.rds"))
 names(df_all_1) = c("NMP_corr", "NMP_pval", "PC", "gene_short_name")
 df_all_1 = df_all_1[!is.na(df_all_1$NMP_pval),]
-df_sig_1 = read.csv(paste0(example_i, "_adata_scale.", i, ".PCA_corr.csv"))
+df_sig_1 = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.csv"))
 
 i = "Notochord"
-df_all_2 = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA_corr.rds"))
+df_all_2 = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.rds"))
 names(df_all_2) = c("Notochord_corr", "Notochord_pval", "PC", "gene_short_name")
 df_all_2 = df_all_2[!is.na(df_all_2$Notochord_pval),]
-df_sig_2 = read.csv(paste0(example_i, "_adata_scale.", i, ".PCA_corr.csv"))
+df_sig_2 = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.csv"))
 
 i = "Gut"
-df_all_3 = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA_corr.rds"))
+df_all_3 = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.rds"))
 names(df_all_3) = c("Gut_corr", "Gut_pval", "PC", "gene_short_name")
 df_all_3 = df_all_3[!is.na(df_all_3$Gut_pval),]
-df_sig_3 = read.csv(paste0(example_i, "_adata_scale.", i, ".PCA_corr.csv"))
+df_sig_3 = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".PCA_corr.csv"))
 
-df_all_4 = read.csv("posterior_embryo_adata_scale.NMP_Mesoderm.DEGs_early_late.csv", row.names=1)
-df_sig_4 = read.csv("posterior_embryo_adata_scale.NMP_Mesoderm.DEGs_early_late_sig.csv", row.names=1)
+df_all_4 = read.csv(paste0(work_path, "posterior_embryo_adata_scale.NMP_Mesoderm.DEGs_early_late.csv"), row.names=1)
+df_sig_4 = read.csv(paste0(work_path, "posterior_embryo_adata_scale.NMP_Mesoderm.DEGs_early_late_sig.csv"), row.names=1)
 NMP_early = df_sig_4[df_sig_4$highly_expressed == "early",]
 NMP_late = df_sig_4[df_sig_4$highly_expressed == "late",]
 
@@ -209,7 +214,7 @@ df_sub = df[df$if_sig == "yes",]
 df_sub$Notochord_PC = df_sub$Gut_PC = df_sub$PC
 df_sub = df_sub[,c("gene_short_name", "Notochord_PC", "Notochord_corr", "Notochord_fdr",
                    "Gut_PC", "Gut_corr", "Gut_fdr")]
-write.csv(df_sub, "Corr_Notochord_PC1_Gut_PC1.csv")
+write.csv(df_sub, paste0(work_path, "Corr_Notochord_PC1_Gut_PC1.csv"))
 
 ### four quadrant
 x1 = sum(Notochord_PC1_pos %in% Gut_PC1_pos)
@@ -230,19 +235,22 @@ p1 = df %>%
     geom_text(data=subset(df, (Notochord_corr >= 0.3 & Gut_corr >= 0.3) | (Notochord_corr <= (-0.5) & Gut_corr <= (-0.5)) & if_sig == "yes"),
               aes(Notochord_corr, Gut_corr, label=gene_short_name), hjust = 0, nudge_x = 0.01, color = "red", size = 2)
 
-pdf("Corr_Notochord_PC1_Gut_PC1.pdf", 5, 5)
+pdf(paste0(work_path, "Corr_Notochord_PC1_Gut_PC1.pdf"), 5, 5)
 print(p1)
 dev.off()
 
 ### line plot 
 
-gene_count = readRDS("posterior_embryo_gene_count.rds")
+example_i = "posterior_embryo"
+pd = read.csv(paste0(work_path, example_i, "_adata_scale.obs.csv"), header=T, row.names=1, as.is=T)
+mouse_gene_sub = mouse_gene[(mouse_gene$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & mouse_gene$chr %in% paste0("chr", c(1:19, "M")),]
+gene_count = doExtractData(pd, mouse_gene_sub)
 
 wnt_genes = c("Ptk7","Rspo3","Axin2","Fzd10","Lef1","Nkd1","Rnf43","Tle4","Wnt3a")
 
 i = "Notochord"
-pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
-res = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA.rds"))
+pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+res = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA.rds"))
 emb = res[["cell.embeddings"]]
 pd_x = pd_x[rownames(emb),]
 gene_count_x = gene_count[,rownames(pd_x)]
@@ -258,7 +266,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 PC_1 = rep(emb[,1], nrow(gene_count_x)), stringsAsFactors = F)
 
-pdf("Notochord_marker_genes.pdf", 5, 3)
+pdf(paste0(work_path, "Notochord_marker_genes.pdf"), 5, 3)
 df %>%
     ggplot(aes(PC_1, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -270,8 +278,8 @@ dev.off()
 
 
 i = "Gut"
-pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
-res = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA.rds"))
+pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+res = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA.rds"))
 emb = res[["cell.embeddings"]]
 pd_x = pd_x[rownames(emb),]
 gene_count_x = gene_count[,rownames(pd_x)]
@@ -287,7 +295,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 PC_1 = rep(emb[,1], nrow(gene_count_x)), stringsAsFactors = F)
 
-pdf("Gut_marker_genes.pdf", 5, 3)
+pdf(paste0(work_path, "Gut_marker_genes.pdf"), 5, 3)
 df %>%
     ggplot(aes(PC_1, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -314,7 +322,7 @@ df = df_all_4 %>% select(avg_logFC, pct.1, pct.2, p_val_adj, highly_expressed, g
 df_sub = df[df$if_sig == "yes",]
 df_sub = df_sub[,c("gene_short_name", "avg_logFC", "pct.1", "pct.2", "p_val_adj", "highly_expressed", 
                    "PC", "Gut_corr", "Gut_fdr")]
-write.csv(df_sub, "NMP_early_late_Gut_PC2_overlap.csv")
+write.csv(df_sub, paste0(work_path, "NMP_early_late_Gut_PC2_overlap.csv"))
 
 NMP_early = df_sub %>% filter(avg_logFC > 0) %>% pull(gene_short_name)
 NMP_late = df_sub %>% filter(avg_logFC < 0) %>% pull(gene_short_name)
@@ -342,13 +350,15 @@ p2 = df %>%
     geom_text(data=subset(df, (avg_logFC >= 0.5 & Gut_corr > 0.2) | (avg_logFC <= (-0.5) & Gut_corr < (-0.2)) & if_sig == "yes"),
               aes(avg_logFC, Gut_corr, label=gene_short_name), hjust = 0, nudge_x = 0.01, color = "red", size = 2)
 
-pdf("NMP_early_late_Gut_PC2_overlap.pdf", 5, 5)
+pdf(paste0(work_path, "NMP_early_late_Gut_PC2_overlap.pdf"), 5, 5)
 print(p2)
 dev.off()
 
 ### line plot 
-
-gene_count = readRDS("posterior_embryo_gene_count.rds")
+example_i = "posterior_embryo"
+pd = read.csv(paste0(work_path, example_i, "_adata_scale.obs.csv"), header=T, row.names=1, as.is=T)
+mouse_gene_sub = mouse_gene[(mouse_gene$gene_type %in% c('protein_coding', 'pseudogene', 'lincRNA')) & mouse_gene$chr %in% paste0("chr", c(1:19, "M")),]
+gene_count = doExtractData(pd, mouse_gene_sub)
 
 target_genes = c("Hspd1","Npm1","Eno1","Ncl","Lin28a","Hsp90aa1")
 
@@ -376,7 +386,7 @@ df = rbind(data.frame(exp = c(t(as.matrix(gene_count_early))),
                       gene = rep(rownames(gene_count_late), each = ncol(gene_count_late)),
                       group = "late", stringsAsFactors = F))
 
-pdf("NMPs_marker_genes.pdf", 4, 3)
+pdf(paste0(work_path, "NMPs_marker_genes.pdf"), 4, 3)
 df %>%
     ggplot( aes(gene, exp, fill = group)) + 
     geom_boxplot(outlier.shape = NA) + 
@@ -390,8 +400,8 @@ dev.off()
 
 
 i = "Gut"
-pd_x = read.csv(paste0(example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
-res = readRDS(paste0(example_i, "_adata_scale.", i, ".PCA.rds"))
+pd_x = read.csv(paste0(work_path, example_i, "_adata_scale.", i, ".obs.csv"), header=T, row.names=1, as.is=T)
+res = readRDS(paste0(work_path, example_i, "_adata_scale.", i, ".PCA.rds"))
 emb = res[["cell.embeddings"]]
 pd_x = pd_x[rownames(emb),]
 gene_count_x = gene_count[,rownames(pd_x)]
@@ -407,7 +417,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 PC_2 = rep(emb[,2], nrow(gene_count_x)), stringsAsFactors = F)
 
-pdf("Gut_marker_genes.pdf", 5, 3)
+pdf(paste0(work_path, "Gut_marker_genes.pdf"), 5, 3)
 df %>%
     ggplot(aes(PC_2, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +

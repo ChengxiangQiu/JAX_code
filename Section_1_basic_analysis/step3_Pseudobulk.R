@@ -10,7 +10,9 @@
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-cds = readRDS("embryo_cds.rds")
+work_path = "./"
+
+cds = readRDS(paste0(work_path, "embryo_cds.rds"))
 
 ### identifying the highly variable genes
 obj = doObjectTransform(cds, transform_to = "seurat")
@@ -52,7 +54,7 @@ fig = plot_ly(df, x = ~PC_1, y = ~PC_2, z = ~PC_3, color = ~day, colors = day_co
                         zaxis=list(title = list(text ='PC_3 (4.2%)', font = t1), tickfont = t2),
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))),
            showlegend = FALSE)
-saveWidget(fig, "embryo_pca_day.html", selfcontained = FALSE, libdir = "tmp")
+saveWidget(fig, paste0(work_path, "embryo_pca_day.html"), selfcontained = FALSE, libdir = "tmp")
 
 sex_color_plate = c("F" = "#ff0000",
                     "M" = "#0000FF")
@@ -62,7 +64,7 @@ fig = plot_ly(df, x = ~PC_1, y = ~PC_2, z = ~PC_3, color = ~embryo_sex, colors =
                         zaxis=list(title = list(text ='PC_3 (4.2%)', font = t1), tickfont = t2),
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))),
            showlegend = FALSE)
-saveWidget(fig, "embryo_pca_sex.html", selfcontained = FALSE, libdir = "tmp")
+saveWidget(fig, paste0(work_path, "embryo_pca_sex.html"), selfcontained = FALSE, libdir = "tmp")
 
 
 

@@ -5,8 +5,9 @@
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
+work_path = "./"
 
-pd = readRDS("pd_somites.rds")
+pd = readRDS(paste0(work_path, "pd_somites.rds"))
 ### n = 104,671 nuclei
 
 celltype_color_plate = c("#54c15f", "#c34fb7", "#91b737", "#7b63d0", "#c9a63c",
@@ -23,7 +24,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=color_plate) +
     theme(legend.position="none") + 
-    ggsave("somites.anno.png", width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, "somites.anno.png"), width = 6, height = 6, dpi = 300)
 
 somite_color_plate = c("#440154", "#482475", "#414487", "#355f8d",
                        "#2a788e", "#21918c", "#22a884", "#44bf70",
@@ -38,7 +39,7 @@ p = pd %>%
     theme_void() +
     scale_color_manual(values=somite_color_plate) +
     theme(legend.position="none") + 
-    ggsave("somites.somite_count.png", width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, "somites.somite_count.png"), width = 6, height = 6, dpi = 300)
 
 ### Supplementary Figure 5a
 pd$embryo_id = factor(pd$embryo_id, levels = rev(names(table(pd$embryo_id))))
@@ -57,7 +58,7 @@ p1 = pd %>%
     theme_classic(base_size = 15) +
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black"))
-pdf("cell_num.pdf", 5, 8)
+pdf(paste0(work_path, "cell_num.pdf"), 5, 8)
 print(p1)
 dev.off()
 
@@ -67,7 +68,7 @@ dev.off()
 #######################
 
 
-pd_NMP = read.csv("adata_somites_NMP.obs.csv", row.names=1, as.is=T)
+pd_NMP = read.csv(paste0(work_path, "adata_somites_NMP.obs.csv"), row.names=1, as.is=T)
 
 somite_color_plate = c("#440154", "#482475", "#414487", "#355f8d",
                        "#2a788e", "#21918c", "#22a884", "#44bf70",
@@ -82,7 +83,7 @@ p = pd_NMP %>%
     theme_void() +
     scale_color_manual(values=somite_color_plate) +
     theme(legend.position="none") + 
-    ggsave("NMP.somite_count.png", width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, "NMP.somite_count.png"), width = 6, height = 6, dpi = 300)
 
 
 p = pd_NMP %>%
@@ -92,7 +93,7 @@ p = pd_NMP %>%
     theme_void() +
     scale_color_manual(values=color_plate) +
     theme(legend.position="none") + 
-    ggsave("NMP.anno.png", width = 6, height = 6, dpi = 300)
+    ggsave(paste0(work_path, "NMP.anno.png"), width = 6, height = 6, dpi = 300)
 
 pd = data.frame(pData(cds))
 pd$somite_count = factor(pd$somite_count, levels = paste0(c(8,9,10,11,12,13,14,16,17,20,21), " somites"))
@@ -120,7 +121,7 @@ p2 <-ggplot(data=df, aes(x=somite_count, y=percent, fill = somite_count)) +
     theme(axis.text.x = element_text(color="black", angle = 90), axis.text.y = element_text(color="black")) 
 
 library(gridExtra) 
-pdf("NMP_Cdx1_Hoxa10.pdf", 4, 6)
+pdf(paste0(work_path, "NMP_Cdx1_Hoxa10.pdf"), 4, 6)
 grid.arrange(p1, p2, nrow=2, ncol=1) 
 dev.off()
 

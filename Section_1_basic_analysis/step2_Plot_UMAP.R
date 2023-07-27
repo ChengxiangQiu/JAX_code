@@ -11,7 +11,9 @@
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = readRDS("df_cell.rds")
+work_path = "./"
+
+pd = readRDS(paste0(work_path, "df_cell.rds"))
 ### n = 11,441,407 cells
 
 x = as.vector(pd$day)
@@ -39,7 +41,7 @@ p1 = pd_cell_num_1 %>%
     theme_classic(base_size = 15) +
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black"))
-pdf("Cell_number_timepoints.pdf", 3.5, 8)
+pdf(paste0(work_path, "Cell_number_timepoints.pdf"), 3.5, 8)
 print(p1)
 dev.off()
 
@@ -63,7 +65,7 @@ p2 = pd_cell_num_2 %>%
     theme_classic(base_size = 15) +
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black"))
-pdf("Cell_number_somite_counts.pdf", 3.5, 8)
+pdf(paste0(work_path, "Cell_number_somite_counts.pdf"), 3.5, 8)
 print(p2)
 dev.off()
 
@@ -75,7 +77,9 @@ dev.off()
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = readRDS("df_cell.rds")
+work_path = "./"
+
+pd = readRDS(paste0(work_path, "df_cell.rds"))
 ### n = 11,441,407 cells
 
 x = as.vector(pd$day)
@@ -93,7 +97,7 @@ p = pd %>%
     scale_color_manual(values = major_trajectory_color_plate) +
     theme_void() +
     theme(legend.position="none") + 
-    ggsave("Global_embedding_2D_UMAP_major_trajectory.png", width = 10, height = 10, dpi = 300)
+    ggsave(paste0(work_path, "Global_embedding_2D_UMAP_major_trajectory.png"), width = 10, height = 10, dpi = 300)
 
 ### Highlight cells with their day timepoints (Fig. 1f)
 ### Of note, we need to downsample cells from each timepint to a similar number (i.e. 100,000)
@@ -108,7 +112,7 @@ p = pd_sub[sample(1:nrow(pd_sub))] %>%
     scale_color_manual(values=day_color_plate) +
     theme_void() +
     theme(legend.position="none") + 
-    ggsave("Global_embedding_2D_UMAP_day.png", width = 10, height = 10, dpi = 300)
+    ggsave(paste0(work_path, "Global_embedding_2D_UMAP_day.png"), width = 10, height = 10, dpi = 300)
 
 
 
@@ -119,7 +123,9 @@ p = pd_sub[sample(1:nrow(pd_sub))] %>%
 source("JAX_help_code.R")
 source("JAX_color_code.R")
 
-pd = readRDS("df_cell.rds")
+work_path = "./"
+
+pd = readRDS(paste0(work_path, "df_cell.rds"))
 ### n = 11,441,407 cells
 
 major_trajectory_list = names(major_trajectory_color_plate)
@@ -144,7 +150,7 @@ for(i in major_trajectory_list){
                                 zaxis=list(title = list(text ='UMAP_3', font = t1), tickfont = t2)))
     }
     
-    saveWidget(fig, paste0(i, "_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
+    saveWidget(fig, paste0(work_path, i, "_celltype_update.html"), selfcontained = FALSE, libdir = "tmp")
     
 }
 

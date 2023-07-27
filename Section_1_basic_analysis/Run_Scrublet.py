@@ -7,14 +7,16 @@ import numpy as np
 import scrublet as scr
 import os, sys
 
+WORK_PATH = './'
+
 for cnt in range(6):
     
     batch_id = str(cnt+1)
     print(batch_id)
 
-    adata = sc.read_mtx("gene_count_%s.mtx"%batch_id)
-    pdata = pd.read.csv("df_cell_%s.csv"%batch_id, index_col = 0)
-    fdata = pd.read_csv("df_gene.csv", index_col = 0)
+    adata = sc.read_mtx(os.path.join(WORK_PATH, "gene_count_%s.mtx"%batch_id))
+    pdata = pd.read.csv(os.path.join(WORK_PATH, "df_cell_%s.csv"%batch_id, index_col = 0))
+    fdata = pd.read_csv(os.path.join(WORK_PATH, "df_gene.csv", index_col = 0))
 
     adata.obs_names = list(pdata['sample'])
     adata.var_names = list(fdata['gene_id'])
@@ -41,6 +43,6 @@ for cnt in range(6):
         get_doublet_neighbor_parents = False
     )
 
-    pd.DataFrame(scrublet_results['doublet_scores_observed_cells']).to_csv("doublet_scores_observed_cells_%s.csv"%batch_id, index = False, header = None)
-    pd.DataFrame(scrublet_results['doublet_scores_simulated_doublets']).to_csv("doublet_scores_simulated_doublets_%s.csv"%batch_id, index = False, header = None)
+    pd.DataFrame(scrublet_results['doublet_scores_observed_cells']).to_csv(os.path.join(WORK_PATH, "doublet_scores_observed_cells_%s.csv"%batch_id), index = False, header = None)
+    pd.DataFrame(scrublet_results['doublet_scores_simulated_doublets']).to_csv(os.path.join(WORK_PATH, "doublet_scores_simulated_doublets_%s.csv"%batch_id), index = False, header = None)
 
