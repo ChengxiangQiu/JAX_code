@@ -247,8 +247,10 @@ birth_color_plate = c("E18.75"       = "#7aa457",
                       "Csection_40m" = "#cc4778",
                       "Csection_60m" = "#f89540",
                       "Csection_80m" = "#f0f921",
-                      "NatBirth"     = "#02b0d1")
-
+                      "NatBirth"     = "#02b0d1",
+                      "NatBirth_rep1" = "#02b0d1",
+                      "NatBirth_rep2" = "#02b0d1",
+                      "NatBirth_rep3" = "#02b0d1")
 
 ######################################
 ### Re-annotation P-S + E8.5b data ###

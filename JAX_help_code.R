@@ -8,51 +8,65 @@
 ### Please let me know if any questions (cxqiu@uw.edu)
 
 ### Section_1_basic_analysis
-### mouse.v12.geneID.txt                                  ### gene annotation based on GENCODE.M12
-### df_gene_all.csv                                       ### gene annotation in a simple format, including 49,585 genes on chr1-19, chrM, chrX, and chrY
-### run_16_RT-sci-samplesheet.csv                         ### RT barcode information for individual cells in run_16
-### df_cell.rds                                           ### meta information of individual cells
-### embryo_cds.rds                                        ### pseudobulk dataset of individual embryos, in monocle/v3 format
-### cell_num_prediction.rds                               ### predicted cell number for individual embryos
+### mouse.v12.geneID.txt                                       ### gene annotation based on GENCODE.M12
+### df_gene_all.csv                                            ### gene annotation in a simple format, including 49,585 genes on chr1-19, chrM, chrX, and chrY
+### run_16_RT-sci-samplesheet.csv                              ### RT barcode information for individual cells in run_16
+### df_cell.rds                                                ### meta information of individual cells
+### embryo_cds.rds                                             ### pseudobulk dataset of individual embryos, in monocle/v3 format
+### cell_num_prediction.rds                                    ### predicted cell number for individual embryos
 
 ### Section_2_posterior_embryo
-### posterior_embryo_adata_scale.obs.csv                  ### meta information of individual cells for posterior embryo subset
-### posterior_embryo_adata_scale.NMP_Mesoderm.obs.csv     ### meta information of individual cells for posterior embryo subset (NMP)
-### posterior_embryo_adata_scale.Notochord.obs.csv        ### meta information of individual cells for posterior embryo subset (Notochord)
-### posterior_embryo_adata_scale.Gut.obs.csv              ### meta information of individual cells for posterior embryo subset (Gut)
-### pd_somites.rds                                        ### meta information of individual cells for the somitogenesis validation dataset
-### adata_somites_NMP.obs.csv                             ### meta information of individual cells for the NMP in the validation dataset
-
+### posterior_embryo_adata_scale.obs.csv                       ### meta information of individual cells for posterior embryo subset
+### posterior_embryo_adata_scale.NMP_Mesoderm.obs.csv          ### meta information of individual cells for posterior embryo subset (NMP)
+### posterior_embryo_adata_scale.Notochord.obs.csv             ### meta information of individual cells for posterior embryo subset (Notochord)
+### posterior_embryo_adata_scale.Gut.obs.csv                   ### meta information of individual cells for posterior embryo subset (Gut)
+### pd_somites.rds                                             ### meta information of individual cells for the somitogenesis validation dataset
+### adata_somites_NMP.obs.csv                                  ### meta information of individual cells for the NMP in the validation dataset
+     
 ### Section_3_kidney_mesenchyme
-### Renal_adata_scale.obs.rds                             ### meta information of renal subset
-### Renal_CDI_adata_scale.obs.rds                         ### meta information of a subset of renal cells
-### LPM_adata_scale.obs.rds                               ### meta information of lateral plate & intermediate mesoderm
-### Mosta_file_list.txt                                   ### a list of file names that downloaded from Mosta database
+### Renal_adata_scale.obs.rds                                  ### meta information of renal subset
+### Renal_CDI_adata_scale.obs.rds                              ### meta information of a subset of renal cells
+### LPM_adata_scale.obs.rds                                    ### meta information of lateral plate & intermediate mesoderm
+### Mosta_file_list.txt                                        ### a list of file names that downloaded from Mosta database
 
 ### Section_4_eye
-### Eye_adata_scale.obs.rds                               ### meta information of eye subset
-### Eye_RGC_adata_scale.obs.rds                           ### meta information of RGCs subset
-### Eye_RGC_heatmap_dat.rds                               ### data used for plot the heatmap in Fig.4e
-### Eye_early_adata_scale.obs.rds                         ### meta information of early eay subset (<=E12.5)
-### Eye_iris_adata_scale.obs.rds                          ### meta information of iris related cells
+### Eye_adata_scale.obs.rds                                    ### meta information of eye subset
+### Eye_RGC_adata_scale.obs.rds                                ### meta information of RGCs subset
+### Eye_RGC_heatmap_dat.rds                                    ### data used for plot the heatmap in Fig.4e
+### Eye_early_adata_scale.obs.rds                              ### meta information of early eay subset (<=E12.5)
+### Eye_iris_adata_scale.obs.rds                               ### meta information of iris related cells
 
 ### Section_5_neuroectoderm
-### Neuroectoderm_backbone_adata_scale.obs.rds            ### meta information of neuroectoderm backbone cells (<E13.0)
-### Neuroectoderm_derivative_adata_scale.obs.rds          ### meta information of neuroectoderm and derivatives (<E13.0) 
-### Neuroectoderm_derivative_adata_scale.PCs.rds          ### PC features of neuroectoderm and derivatives (<E13.0) 
-### Neurons_adata_scale.obs.rds                           ### meta information of subclustering result of early neurons (Fig.5e)
-### INP_adata_scale.obs.rds                               ### meta information of subclustering result of intermediate neuronal progenitors major cell cluster
-### Neurons_heatmap_dat.rds                               ### data used for plot the heatmap in Fig.5f
-### Astrocytes_adata_scale.obs.rds                        ### meta information of astrocytes (Fig.S13, <E13.0)
-### Neurons_interneurons_top_TFs.csv                      ### top key TFs identified for each spinal interneurons (Fig.S14b)
-### Neurons_interneurons_overlap_TFs.csv                  ### top TFs that highly expressed in the progenitors of each spinal interneurons (Fig.S14c)
+### Neuroectoderm_backbone_adata_scale.obs.rds                 ### meta information of neuroectoderm backbone cells (<E13.0)
+### Neuroectoderm_derivative_adata_scale.obs.rds               ### meta information of neuroectoderm and derivatives (<E13.0) 
+### Neuroectoderm_derivative_adata_scale.PCs.rds               ### PC features of neuroectoderm and derivatives (<E13.0) 
+### Neurons_adata_scale.obs.rds                                ### meta information of subclustering result of early neurons (Fig.5e)
+### INP_adata_scale.obs.rds                                    ### meta information of subclustering result of intermediate neuronal progenitors major cell cluster
+### Neurons_heatmap_dat.rds                                    ### data used for plot the heatmap in Fig.5f
+### Astrocytes_adata_scale.obs.rds                             ### meta information of astrocytes (Fig.S13, <E13.0)
+### Neurons_interneurons_top_TFs.csv                           ### top key TFs identified for each spinal interneurons (Fig.S14b)
+### Neurons_interneurons_overlap_TFs.csv                       ### top TFs that highly expressed in the progenitors of each spinal interneurons (Fig.S14c)
 
 ### Section_6_development_tree
 
+
+
+
 ### Section_7_birth_series
-
-
-
+### Hepatocytes_adata_scale.obs.rds                            ### meta information of subclustering result of hepatocytes major cell cluster
+### Adipocytes_adata_scale.obs.rds                             ### meta information of subclustering result of adipocytes major cell cluster
+### Lung_and_airway_adata_scale.obs.rds                        ### meta information of subclustering result of lung & airway major cell cluster
+### pd_birth.rds                                               ### meta information of birth series dataset, including major_trajectory annotation
+### Birth_series.PCs.rds                                       ### PC features of birth series dataset
+### Birth_series_Hepatocytes_Csections.obs.rds                 ### meta information of hepatocytes from the birth series dataset, only including C-section samples
+### Birth_series_Adipocytes_Csections.obs.rds                  ### meta information of adipocytes from the birth series dataset, only including C-section samples
+### Birth_series_Lung_and_airway_Csections.obs.rds             ### meta information of lung & airway from the birth series dataset, only including C-section samples
+### Birth_series_Hepatocytes_Csections_NatBirth.obs.rds        ### meta information of hepatocytes from the birth series dataset, including C-section and NatBirth samples
+### Birth_series_Adipocytes_Csections_NatBirth.obs.rds         ### meta information of adipocytes from the birth series dataset, including C-section and NatBirth samples
+### Birth_series_Lung_and_airway_Csections_NatBirth.obs.rds    ### meta information of lung & airway from the birth series dataset, including C-section and NatBirth samples
+### adata_Adipocytes_NatBirth.PCs.csv                          ### PC features of adipocytes from C-section + NatBirth samples
+### adata_Hepatocytes_NatBirth.PCs.csv                         ### PC features of hepatocytes from C-section + NatBirth samples
+### adata_Lung_and_airway_NatBirth.PCs.csv                     ### PC features of lung & airway from C-section + NatBirth samples
 
 
 ################################################
@@ -76,6 +90,7 @@ library(gplots)
 library(RColorBrewer)
 library(rdist)
 library(ggridges)
+library(scales)
 
 mouse_gene = read.table("mouse.v12.geneID.txt", header = T)
 rownames(mouse_gene) = as.vector(mouse_gene$gene_ID)
@@ -133,7 +148,7 @@ doObjectTransform <- function(x, transform_to = NULL){
 
 doExtractData <- function(df_cell, df_gene){
     experiment_list = paste0("run_", c(4, 13, 14, 15, 16, "17_sub1", "17_sub2", 18,
-                                       19, 20, 21, 22, 23, 24, 25, 26, 27))
+                                       19, 20, 21, 22, 23, 24, 25, 26, 27, 28))
     gene_count = NULL
     for(i in experiment_list){
         print(paste0(i, "/", length(experiment_list)))
@@ -152,6 +167,27 @@ doExtractData <- function(df_cell, df_gene){
     gene_count = gene_count[,as.vector(df_cell$cell_id)]
     return(gene_count)
 }
+
+
+#############################################
+### Function: simplify the cell type name ###
+#############################################
+
+doSimpleName <- function(x){
+    celltype_name = gsub("[(]", "", x)
+    celltype_name = gsub("[)]", "", celltype_name)
+    celltype_name = gsub("[+]", "", celltype_name)
+    celltype_name = gsub("[-]", " ", celltype_name)
+    celltype_name = gsub("[/]", " ", celltype_name)
+    celltype_name = gsub(" ", "_", celltype_name)
+    return(celltype_name)
+}
+
+
+
+
+
+
 
 
 
