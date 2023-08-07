@@ -48,11 +48,18 @@
 ### Neurons_interneurons_overlap_TFs.csv                       ### top TFs that highly expressed in the progenitors of each spinal interneurons (Fig.S14c)
 
 ### Section_6_development_tree
+### nodes.txt                                                  ### id, name, and subsystem for each node in the final graph
+### PS_JAXE8.5_integration.obs.rds                             ### meta information of cells by integrating P-S and subset of JAX data (E8-E8.5, somites 0-12)
+### df_cell_graph.rds                                          ### node information (id, name, and system) of cells from organogenesis & fetal development in the final graph
+### edges_MNNs.txt                                             ### edges with comments by manually reviewing
+### edges.txt                                                  ### edges which are retained after manually reviewing
+
+### Section_7_key_TFs
+### Mus_musculus_TF.txt                                        ### mouse TF list, downloaded from AnimalTFDB database
+### pijuan_obs.csv                                             ### meta information of cells from P-S gastrulaion dataset
 
 
-
-
-### Section_7_birth_series
+### Section_8_birth_series
 ### Hepatocytes_adata_scale.obs.rds                            ### meta information of subclustering result of hepatocytes major cell cluster
 ### Adipocytes_adata_scale.obs.rds                             ### meta information of subclustering result of adipocytes major cell cluster
 ### Lung_and_airway_adata_scale.obs.rds                        ### meta information of subclustering result of lung & airway major cell cluster
@@ -91,6 +98,7 @@ library(RColorBrewer)
 library(rdist)
 library(ggridges)
 library(scales)
+library(hrbrthemes)
 
 mouse_gene = read.table("mouse.v12.geneID.txt", header = T)
 rownames(mouse_gene) = as.vector(mouse_gene$gene_ID)
