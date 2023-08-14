@@ -30,7 +30,7 @@ df$tmp = as.vector(day)
 pd_cell_num_1 = df %>% group_by(tmp, day) %>% tally() %>% rename(cell_num = n) %>% as.data.frame()
 pd_cell_num_1$tmp = factor(pd_cell_num_1$tmp, levels = rev(1:12))
 
-### Fig. S17a
+### Fig. S23a
 
 p = pd_cell_num_1 %>%
     ggplot(aes(tmp, cell_num, fill = day)) + 
@@ -58,7 +58,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "pd_birth.rds"))
 
-### Fig. S17b
+### Fig. S23b
 
 p = pd %>%
     ggplot() +
@@ -111,7 +111,7 @@ trajectory_i = "Adipocytes"
 df = readRDS(paste0(work_path, "Birth_series_", trajectory_i, "_Csections.obs.rds"))
 df$day = paste0("Csection_", as.vector(df$day), "m")
 
-### Fig. S17c
+### Fig. S23c
 
 color_plate = c("Brown adipocyte cells" = "#cb6751",
                 "Adipocyte progenitor cells" = "#7aa457",
@@ -149,7 +149,7 @@ trajectory_i = "Lung_and_airway"
 df = readRDS(paste0(work_path, "Birth_series_", trajectory_i, "_Csections.obs.rds"))
 df$day = paste0("Csection_", as.vector(df$day), "m")
 
-### Fig. S17d
+### Fig. S23d
 
 color_plate = c("Airway club cells" = "#6dd9b4",
                 "Alveolar Type 1 cells" = "#008cff",

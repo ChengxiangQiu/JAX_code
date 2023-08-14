@@ -26,7 +26,7 @@ p = pd %>%
     theme(legend.position="none") + 
     ggsave(paste0(work_path, example_i, ".2D_UMAP.png"), width = 6, height = 6, dpi = 300)
 
-### Fig. S12c
+### Fig. S18c
 
 day_list = names(day_color_plate)
 pd$day = factor(pd$day, levels = day_list[day_list %in% pd$day])
@@ -52,7 +52,7 @@ example_i = "INP"; print(example_i)
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. 12a
+### Fig. 18a
 
 p = pd %>%
     ggplot() +

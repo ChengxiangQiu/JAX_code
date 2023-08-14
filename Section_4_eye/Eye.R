@@ -55,7 +55,7 @@ fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~day_gr
 saveWidget(fig, paste0(work_path, example_i, "_day_group.html"), selfcontained = FALSE, libdir = "tmp")
 
 
-### Fig. S10a
+### Fig. S16a
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +
@@ -124,7 +124,7 @@ p = x %>%
     scale_color_manual(values=eye_color_plate) +
     NoLegend()
 
-### Fig. S10e
+### Fig. S16e
 
 p = x_sub %>% 
     ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
@@ -213,7 +213,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "Eye_early_adata_scale.obs.rds"))
 
-### Fig. S10c
+### Fig. S16c
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +
@@ -247,7 +247,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "Eye_iris_adata_scale.obs.rds"))
 
-### Fig. S10f
+### Fig. S16f
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +

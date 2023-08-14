@@ -335,7 +335,7 @@ for(i in 1:nrow(dat_x)){
 
 df$celltype_A = factor(df$celltype_A, levels = rev(row_names_order))
 
-### Fig. S14d
+### Fig. S20d
 
 p = ggplot(df, aes(x = day_B, y = celltype_A, fill = celltype_A)) +
     geom_density_ridges() +

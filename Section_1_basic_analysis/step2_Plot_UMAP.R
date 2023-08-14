@@ -117,7 +117,7 @@ p = pd_sub[sample(1:nrow(pd_sub))] %>%
 
 
 ###############################################################################
-### Making 3D UMAP for individual major_trajectories (Supplementary Fig. 4) ###
+### Making 3D UMAP for individual major_trajectories (Supplementary Fig. 6) ###
 ###############################################################################
 
 source("JAX_help_code.R")

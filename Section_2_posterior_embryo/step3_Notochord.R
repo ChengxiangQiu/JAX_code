@@ -94,7 +94,7 @@ saveWidget(fig, paste0(work_path, example_i, "_Notochord_PCA_celltype_update.htm
 ### counting cell number of nodal cilia as a function of somite counts ###
 ##########################################################################
 
-### Supplementary Fig. 6b
+### Supplementary Fig. 8b
 ### data that we are using
 
 ### somite_count  a     n       frac

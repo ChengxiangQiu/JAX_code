@@ -51,7 +51,7 @@ p3 = df_3 %>%
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black")) 
 
-### Fig. S16c
+### Fig. S22c
 
 pdf(paste0(work_path, "Hist_TF.pdf"), 6, 3)
 grid.arrange(p1, p3, nrow=1, ncol=2) 
@@ -104,7 +104,7 @@ p3 = df_3 %>%
     theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black")) 
 
-### Fig. S16d
+### Fig. S22d
 
 pdf(paste0(work_path, "Hist_Gene.pdf"), 6, 3)
 grid.arrange(p1, p3, nrow=1, ncol=2) 

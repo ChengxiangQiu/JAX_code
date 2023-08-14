@@ -43,7 +43,7 @@ celltype_list = paste0("Spinal dI", c(1:5), " interneurons")
 
 early_list = NULL
 
-### Fig. S14b
+### Fig. S20b
 
 for(celltype_i in celltype_list){
     
@@ -212,7 +212,7 @@ colnames(exp) = row_names_order
 exp = exp[as.vector(res_overlap$gene_ID),]
 rownames(exp) = as.vector(res_overlap$gene_short_name)
 
-### Fig. S14c (top panel)
+### Fig. S20c (top panel)
 
 Colors=rev(brewer.pal(11,"Spectral"))
 Colors=colorRampPalette(Colors)(120)
@@ -323,7 +323,7 @@ for(i in 1:nrow(res_overlap)){
 rownames(exp) = c("Earliest 500", paste0("bin_", 1:20))
 colnames(exp) = as.vector(res_overlap$gene_short_name)
 
-### Fig. S14c (bottom panel)
+### Fig. S20c (bottom panel)
 
 Colors=rev(brewer.pal(11,"Spectral"))
 Colors=colorRampPalette(Colors)(120)

@@ -22,7 +22,8 @@
 ### posterior_embryo_adata_scale.Gut.obs.csv                   ### meta information of individual cells for posterior embryo subset (Gut)
 ### pd_somites.rds                                             ### meta information of individual cells for the somitogenesis validation dataset
 ### adata_somites_NMP.obs.csv                                  ### meta information of individual cells for the NMP in the validation dataset
-     
+### sample_sheet.txt                                           ### plug date, harvested date, litter IDs, and shipment IDs for individual embryos
+
 ### Section_3_kidney_mesenchyme
 ### Renal_adata_scale.obs.rds                                  ### meta information of renal subset
 ### Renal_CDI_adata_scale.obs.rds                              ### meta information of a subset of renal cells
@@ -58,7 +59,6 @@
 ### Mus_musculus_TF.txt                                        ### mouse TF list, downloaded from AnimalTFDB database
 ### pijuan_obs.csv                                             ### meta information of cells from P-S gastrulaion dataset
 
-
 ### Section_8_birth_series
 ### Hepatocytes_adata_scale.obs.rds                            ### meta information of subclustering result of hepatocytes major cell cluster
 ### Adipocytes_adata_scale.obs.rds                             ### meta information of subclustering result of adipocytes major cell cluster
@@ -85,6 +85,7 @@ library(Seurat)
 library(lattice)
 library(FNN)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(viridis)
 library(Matrix)

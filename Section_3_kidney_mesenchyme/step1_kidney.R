@@ -130,7 +130,7 @@ p = pd_sub %>%
 ### Ploting cells for before E18.75, E18.75, and P0 ###
 #######################################################
 
-### Fig. S7d
+### Fig. S10d
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
@@ -223,7 +223,7 @@ x_first_day = x %>% group_by(celltype_update) %>% filter(n >= 10) %>%
 x_sub = x %>% left_join(x_first_day %>% select(celltype_update, first_day_value), by = "celltype_update") %>%
     filter(day_value >= first_day_value)
 
-### Fig. S7b
+### Fig. S10b
 p = x_sub %>% 
     ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
     geom_bar(stat='identity') + facet_grid(rows = vars(celltype_update)) + 

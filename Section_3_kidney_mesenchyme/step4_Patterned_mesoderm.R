@@ -3,9 +3,9 @@
 ### Section - 3, Kidney_mesenchyme ###
 ######################################
 
-###################################################################################
-### The emergence of mesenchymal subtypes from the patterned mesoderm (Fig. S9) ###
-###################################################################################
+####################################################################################
+### The emergence of mesenchymal subtypes from the patterned mesoderm (Fig. S15) ###
+####################################################################################
 
 ################################################
 ### checking the timeline for mesoderm cells ###
@@ -77,7 +77,7 @@ x_first_somite_count = x %>% group_by(celltype_update) %>% filter(n >= 10) %>%
 x_sub = x %>% left_join(x_first_somite_count %>% select(celltype_update, first_somite_count_value), by = "celltype_update") %>%
     filter(somite_count_value >= first_somite_count_value)
 
-### Fig. S9a
+### Fig. S15a
 p = x_sub %>% 
     ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
     geom_bar(stat='identity') + facet_grid(rows = vars(celltype_update)) + 
@@ -109,7 +109,7 @@ pd_sub_1$celltype_update = paste0("LPM:", as.vector(pd_sub_1$lateral_plate_mesod
 pd_sub_2 = pd_all[is.na(pd_all$lateral_plate_mesoderm_sub_clustering),]
 pd = rbind(pd_sub_1, pd_sub_2)
 
-### first extract cells for backbone (as shown in Fig. S9b)
+### first extract cells for backbone (as shown in Fig. S15b)
 
 pd_sub = pd[pd$celltype_update %in% c("LPM:Allantois",
                                       "LPM:Amniotic mesoderm",
@@ -172,7 +172,7 @@ example_i = "LPM_somite_5_20"
 pd = read.csv(paste0(work_path, example_i, "_backbone_adata_scale.obs.csv"), header=T, row.names=1)
 rownames(pd) = as.vector(pd$cell_id)
 
-### Fig. S9b
+### Fig. S15b
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.8) +
@@ -306,7 +306,7 @@ for(i in celltype_not_include){
 row_names_order = row_cell_type[row_cell_type %in% rownames(dat_num_sub)]
 col_names_order = col_cell_type[col_cell_type %in% colnames(dat_num_sub)]
 
-### Fig. S9d
+### Fig. S15d
 heatmap.2(as.matrix(dat_num_sub[row_names_order,col_names_order]), 
           col=magma,
           scale="row", 
@@ -329,7 +329,7 @@ df = pd_backbone %>% select(UMAP_1 = UMAP_2d_1, UMAP_2 = UMAP_2d_2, cell_id, day
 df$celltype_derive[is.na(df$celltype_derive)] = "other"
 df$freq[is.na(df$freq)] = 0
 
-### Fig. S9c
+### Fig. S15c
 try(ggplot() +
         geom_point(data = df, aes(x = UMAP_1, y = UMAP_2), size=0.2, color = "grey90") +
         geom_point(data = df[df$celltype_derive != "other",][sample(1:sum(df$celltype_derive != "other")),], aes(x = UMAP_1, y = UMAP_2, color = celltype_derive), size=0.3) +
@@ -364,7 +364,7 @@ pd_sub_1$celltype_update = paste0("LPM:", as.vector(pd_sub_1$lateral_plate_mesod
 pd_sub_2 = pd_all[is.na(pd_all$lateral_plate_mesoderm_sub_clustering),]
 pd = rbind(pd_sub_1, pd_sub_2)
 
-### first extract cells for backbone (as shown in Fig. S9e)
+### first extract cells for backbone (as shown in Fig. S15e)
 
 pd_sub = pd[pd$celltype_update %in% c("LPM:Allantois",
                                       "LPM:Amniotic mesoderm",
@@ -440,7 +440,7 @@ example_i = "LPM_somite_26_34"
 pd = read.csv(paste0(work_path, example_i, "_backbone_adata_scale.obs.csv"), header=T, row.names=1)
 rownames(pd) = as.vector(pd$cell_id)
 
-### Fig. S9e
+### Fig. S15e
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.8) +
@@ -580,7 +580,7 @@ for(i in celltype_not_include){
 row_names_order = row_cell_type[row_cell_type %in% rownames(dat_num_sub)]
 col_names_order = col_cell_type[col_cell_type %in% colnames(dat_num_sub)]
 
-### Fig. S9g
+### Fig. S15g
 heatmap.2(as.matrix(dat_num_sub[row_names_order,col_names_order]), 
           col=magma,
           scale="row", 
@@ -603,7 +603,7 @@ df = pd_backbone %>% select(UMAP_1 = UMAP_2d_1, UMAP_2 = UMAP_2d_2, cell_id, day
 df$celltype_derive[is.na(df$celltype_derive)] = "other"
 df$freq[is.na(df$freq)] = 0
 
-### Fig. S9f
+### Fig. S15f
 try(ggplot() +
         geom_point(data = df, aes(x = UMAP_1, y = UMAP_2), size=0.2, color = "grey90") +
         geom_point(data = df[df$celltype_derive != "other",][sample(1:sum(df$celltype_derive != "other")),], aes(x = UMAP_1, y = UMAP_2, color = celltype_derive), size=0.3) +
