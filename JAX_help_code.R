@@ -4,7 +4,7 @@
 ###########################################
 
 ### All those data are provided from
-### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/nobackup/jax/download/other/
+### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/backup/jax/download/other/
 ### Please let me know if any questions (cxqiu@uw.edu)
 
 ### Section_1_basic_analysis
@@ -153,7 +153,7 @@ doObjectTransform <- function(x, transform_to = NULL){
 ##############################################################
 
 ### We provided UMI count matrix for individual experiments, please download those data if you going to apply this function.
-### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/nobackup/jax/download/mtx/
+### https://shendure-web.gs.washington.edu/content/members/cxqiu/public/backup/jax/download/mtx/
 
 doExtractData <- function(df_cell, df_gene){
     experiment_list = paste0("run_", c(4, 13, 14, 15, 16, "17_sub1", "17_sub2", 18,

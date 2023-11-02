@@ -8,7 +8,7 @@
 ######################################
 
 ### The gene_count, df_cell, df_gene data could be downloaded from
-### /net/shendure/vol10/www/content/members/cxqiu/public/nobackup/jax/download/mtx
+### /net/shendure/vol10/www/content/members/cxqiu/public/backup/jax/download/mtx
 ### cell_annotation.run_28.csv.gz
 ### gene_count.run_28.mtx.gz
 ### gene_annotation.csv.gz
