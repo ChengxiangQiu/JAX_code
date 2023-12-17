@@ -4,7 +4,7 @@
 ######################################
 
 #######################################################
-### Spatial mapping using Tangram + Mosta (Fig. 3g) ###
+### Spatial mapping using Tangram + Mosta (Fig. 3e) ###
 #######################################################
 
 ### The Mosta (spatial transcriptome) data was downloaded from https://db.cngb.org/stomics/mosta/download/

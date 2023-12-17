@@ -15,7 +15,7 @@ example_i = "Neuroectoderm_backbone"; print(example_i)
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. 5a
+### Fig. 4a
 
 p = pd %>%
     ggplot() +
@@ -39,7 +39,7 @@ example_i = "Neuroectoderm_derivative"; print(example_i)
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. 5b
+### Fig. 4b
 
 fig = plot_ly(pd[sample(1:nrow(pd), 250000),], x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~major_trajectory, colors = major_trajectory_color_plate) %>% 
     layout(scene = list(xaxis=list(title = list(text ='UMAP_1', font = t1), tickfont = t2),
@@ -48,7 +48,7 @@ fig = plot_ly(pd[sample(1:nrow(pd), 250000),], x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, 
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))))
 saveWidget(fig, paste0(work_path, example_i, "_major_trajectory.html"), selfcontained = FALSE, libdir = "tmp")
 
-### Fig. 5c (left panel)
+### Fig. 4c
 
 fig = plot_ly(pd[sample(1:nrow(pd), 250000),], x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~day, colors = day_color_plate) %>% 
     layout(scene = list(xaxis=list(title = list(text ='UMAP_1', font = t1), tickfont = t2),
@@ -57,7 +57,7 @@ fig = plot_ly(pd[sample(1:nrow(pd), 250000),], x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, 
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))))
 saveWidget(fig, paste0(work_path, example_i, "_day.html"), selfcontained = FALSE, libdir = "tmp")
 
-### Fig. 5c (right panel)
+### BACKUP ###
 
 celltype_list = c("Telencephalon",
                   "Dorsal telencephalon",

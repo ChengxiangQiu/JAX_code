@@ -3,7 +3,7 @@
 ### Section - 2, Posterior embryo ###
 #####################################
 
-#### Supplementary Figure 9
+#### # Extended Data Fig. 4k-l
 
 ### First, we downsampled the dataset to ~1M cells using geosketch (Hie et al. 2019) 
 ### and performed k-means clustering to ensure that each cluster contained roughly 500 cells. 

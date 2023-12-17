@@ -32,7 +32,7 @@ day_group_color_plate=colorRampPalette(day_group_color_plate)(8)
 names(day_group_color_plate) = c("Before E13", "E13-E14", "E14-E15", "E15-E16", 
                                  "E16-E17", "E17-E18", "E18-P0", "P0")
 
-### Fig. 4a
+### Extended Data Fig. 9a
 
 fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~celltype_update, colors = eye_color_plate) %>% 
     layout(scene = list(xaxis=list(title = list(text ='UMAP_1', font = t1), tickfont = t2),
@@ -55,7 +55,7 @@ fig = plot_ly(pd, x=~UMAP_1, y=~UMAP_2, z=~UMAP_3, size = I(30), color = ~day_gr
 saveWidget(fig, paste0(work_path, example_i, "_day_group.html"), selfcontained = FALSE, libdir = "tmp")
 
 
-### Fig. S16a
+### Extended Data Fig. 9b
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +
@@ -112,7 +112,7 @@ x_first_day = x %>% group_by(celltype_update) %>% filter(n >= 10) %>%
 x_sub = x %>% left_join(x_first_day %>% select(celltype_update, first_day_value), by = "celltype_update") %>%
     filter(day_value >= first_day_value)
 
-### Fig. 4b
+### Extended Data Fig. 9f
 
 p = x %>%
     ggplot(aes(day_value, normalized_num_log2, color = celltype_update)) + geom_smooth(method = loess, se = FALSE) +
@@ -124,7 +124,7 @@ p = x %>%
     scale_color_manual(values=eye_color_plate) +
     NoLegend()
 
-### Fig. S16e
+### Extended Data Fig. 9h
 
 p = x_sub %>% 
     ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
@@ -163,7 +163,7 @@ day_group_color_plate=colorRampPalette(day_group_color_plate)(8)
 names(day_group_color_plate) = c("Before E13", "E13-E14", "E14-E15", "E15-E16", 
                                  "E16-E17", "E17-E18", "E18-P0", "P0")
 
-### Fig. 4d
+### Extended Data Fig. 9k
 
 p = pd %>%
     ggplot() +
@@ -185,7 +185,7 @@ p = pd %>%
 
 dat = readRDS(paste0(work_path, "Eye_RGC_heatmap_dat.rds"))
 
-### Fig. 4e
+### Extended Data Fig. 9l
 
 Colors=rev(brewer.pal(11,"Spectral"))
 Colors=colorRampPalette(Colors)(120)
@@ -213,7 +213,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "Eye_early_adata_scale.obs.rds"))
 
-### Fig. S16c
+### Extended Data Fig. 9d
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +
@@ -247,7 +247,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "Eye_iris_adata_scale.obs.rds"))
 
-### Fig. S16f
+### Extended Data Fig. 9i
 
 p = pd[sample(1:nrow(pd)),] %>%
     ggplot() +

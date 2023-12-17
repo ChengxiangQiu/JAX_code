@@ -16,7 +16,7 @@ celltype_color_plate = c("#54c15f", "#c34fb7", "#91b737", "#7b63d0", "#c9a63c",
                          "#a0445d", "#37845f", "#df7c82", "#72732b", "#a06432")
 names(celltype_color_plate) = x
 
-### Supplementary Figure 7b
+### Extended Data Fig. 4b
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.8) +
@@ -31,7 +31,7 @@ somite_color_plate = c("#440154", "#482475", "#414487", "#355f8d",
                        "#7ad151", "#bddf26", "#fde725")
 names(somite_color_plate) = paste0(c(8,9,10,11,12,13,14,16,17,20,21), " somites")
 
-### Supplementary Figure 7c
+### Extended Data Fig. 4c
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.8) +
@@ -41,7 +41,7 @@ p = pd %>%
     theme(legend.position="none") + 
     ggsave(paste0(work_path, "somites.somite_count.png"), width = 6, height = 6, dpi = 300)
 
-### Supplementary Figure 7a
+### Extended Data Fig. 4a
 pd$embryo_id = factor(pd$embryo_id, levels = rev(names(table(pd$embryo_id))))
 p1 = pd %>%
     group_by(embryo_id, somite_count) %>% tally() %>% rename(cell_num = n) %>%
@@ -119,6 +119,8 @@ p2 <-ggplot(data=df, aes(x=somite_count, y=percent, fill = somite_count)) +
     geom_bar(stat="identity") + labs(x="",y="% of cells expressed Hoxa10") +
     scale_fill_manual(values=somite_color_plate) + theme_classic(base_size = 10) + theme(legend.position="none") +
     theme(axis.text.x = element_text(color="black", angle = 90), axis.text.y = element_text(color="black")) 
+
+# Extended Data Fig. 4f
 
 library(gridExtra) 
 pdf(paste0(work_path, "NMP_Cdx1_Hoxa10.pdf"), 4, 6)

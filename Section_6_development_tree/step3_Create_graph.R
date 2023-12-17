@@ -107,7 +107,7 @@ dat_uniq$group = "Rejected"
 df = rbind(dat_1, dat_uniq)
 df$log2_MNN_pairs_normalized = log2(df$MNN_pairs_normalized)
 
-### Fig. S21a
+### Extended Data Fig. 11d
 
 p <- df %>%
     ggplot( aes(x=log2_MNN_pairs_normalized, fill=group)) +

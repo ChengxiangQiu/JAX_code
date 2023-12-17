@@ -15,7 +15,7 @@ example_i = "Astrocytes"; print(example_i)
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. S19a
+### Extended Data Fig. 10g
 
 p = pd %>%
     ggplot() +
@@ -78,7 +78,7 @@ x = data.frame(day = rep(x$day, 4),
 
 x$major_trajectory = factor(x$major_trajectory, levels = c("VA1","VA2","VA3","AA"))
 
-### Fig. S19b
+### Extended Data Fig. 10h
 
 p = x %>% 
     ggplot(aes(x=day, y=frac, fill = day)) + 
@@ -112,7 +112,7 @@ rownames(pd_back) = as.vector(pd_back$cell_id)
 
 celltype_sub_clustering_list = paste0("VA", c(1:3), " astrocytes")
 
-### Fig. S19d
+### Extended Data Fig. 10j
 
 for(i in celltype_sub_clustering_list){
     print(i)

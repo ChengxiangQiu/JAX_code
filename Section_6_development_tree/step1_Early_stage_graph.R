@@ -155,9 +155,9 @@ saveRDS(emb, paste0(work_path, "pd_processed_PS_JaxE85.PCs.rds"))
 ### Based on the co-embedding, we reannotated each individual cell clusters
 ### Updated cell type annotation is saved in "celltype_update" column in PS_JAXE8.5_integration.obs.rds
 
-### Fig. S21b
+### Extended Data Fig. 11e
 
-pd = readRDS(paste0(work_pat, "PS_JAXE8.5_integration.obs.rds"))
+pd = readRDS(paste0(work_path, "PS_JAXE8.5_integration.obs.rds"))
 ggplot() +
     geom_point(data = pd[sample(1:nrow(pd)),], aes(x = UMAP_1, y = UMAP_2), size=0.5, color = "black") +
     geom_point(data = pd[sample(1:nrow(pd)),], aes(x = UMAP_1, y = UMAP_2, color = celltype_update), size=0.35) +
@@ -166,7 +166,7 @@ ggplot() +
     theme(legend.position="none") + 
     ggsave(paste0(work_path, "PS_JaxE85_celltype_update.png"), width = 8, height = 8, dpi = 300)
 
-### Fig. S21c
+### Extended Data Fig. 11f
 
 color_plate = c("Pijuan_Sala" = "#cc545e", "Jax" = "#9970c1")
 
@@ -244,7 +244,7 @@ dat$celltype_update = factor(dat$celltype_update, levels = celltype_rank)
 dat_x = dat %>% group_by(pre_celltype) %>% slice_max(order_by = n, n = 1) %>% arrange(celltype_update)
 exp = exp[as.vector(dat_x$pre_celltype), celltype_rank]
 
-### Fig. S21d
+### Extended Data Fig. 11g
 
 Colors=rev(brewer.pal(11,"Spectral"))
 Colors=colorRampPalette(Colors)(120)
@@ -292,7 +292,7 @@ dat$celltype_update = factor(dat$celltype_update, levels = celltype_rank)
 dat_x = dat %>% group_by(cell_type) %>% slice_max(order_by = n, n = 1) %>% arrange(celltype_update)
 exp = exp[as.vector(dat_x$cell_type), celltype_rank]
 
-### Fig. S21e
+### Extended Data Fig. 11h
 
 Colors=rev(brewer.pal(11,"Spectral"))
 Colors=colorRampPalette(Colors)(120)

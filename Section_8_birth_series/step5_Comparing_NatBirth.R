@@ -13,7 +13,7 @@ work_path = "./"
 
 trajectory_list = c("Hepatocytes", "Adipocytes", "Lung_and_airway")
 
-### Fig. S23f
+### Extended Data Fig. 12f
 
 for(trajectory_i in trajectory_list){
     
@@ -52,7 +52,7 @@ work_path = "./"
 
 trajectory_list = c("Hepatocytes", "Adipocytes", "Lung_and_airway")
 
-### Fig. S23e
+### Extended Data Fig. 12e
 
 for(trajectory_i in trajectory_list){
     

@@ -83,7 +83,7 @@ example_i = "Renal_CDI"
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. 3d
+### # Extended Data Fig. 5f
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.5) +
@@ -130,7 +130,7 @@ p = pd_sub %>%
 ### Ploting cells for before E18.75, E18.75, and P0 ###
 #######################################################
 
-### Fig. S10d
+### # Extended Data Fig. 5h
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
@@ -223,7 +223,8 @@ x_first_day = x %>% group_by(celltype_update) %>% filter(n >= 10) %>%
 x_sub = x %>% left_join(x_first_day %>% select(celltype_update, first_day_value), by = "celltype_update") %>%
     filter(day_value >= first_day_value)
 
-### Fig. S10b
+### # Extended Data Fig. 5b
+
 p = x_sub %>% 
     ggplot(aes(x=day, y=estimated_num_log2, fill = celltype_update)) + 
     geom_bar(stat='identity') + facet_grid(rows = vars(celltype_update)) + 

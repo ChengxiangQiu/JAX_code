@@ -4,7 +4,7 @@
 #####################################
 
 #########################################################################################################
-### We present two examples in Fig. 6 a-e for illustration of basis for edge inference heuristic
+### We present two examples in Fig. 5 a-e for illustration of basis for edge inference heuristic
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")

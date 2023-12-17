@@ -20,7 +20,7 @@ x = as.vector(pd$day)
 x[pd$day == "E8.0-E8.5"] = "E8.5"
 pd$day = as.vector(x)
 
-### Making bar plot for cell number from individual timepoints (Fig. 1c)
+### Making bar plot for cell number from individual timepoints (Fig. 1a)
 
 pd_cell_num_1 = pd %>% group_by(day) %>% tally() %>% rename(cell_num = n) %>% as.data.frame()
 pd_cell_num_1$day = factor(pd_cell_num_1$day, levels = rev(names(day_color_plate)))
@@ -45,7 +45,7 @@ pdf(paste0(work_path, "Cell_number_timepoints.pdf"), 3.5, 8)
 print(p1)
 dev.off()
 
-### Making bar plot for cell number from individual somite counts (Fig. 1c)
+### Making bar plot for cell number from individual somite counts (Fig. 1a)
 
 pd_cell_num_2 = pd[!is.na(pd$somite_count),] %>% group_by(somite_count) %>% tally() %>% rename(cell_num = n) %>% as.data.frame()
 pd_cell_num_2$somite_count = factor(pd_cell_num_2$somite_count, levels = rev(names(somite_color_plate)))
@@ -88,7 +88,7 @@ pd$day = as.vector(x)
 
 ### Making 2D UMAP visualization for the global embedding
 
-### Highlight cells with their major trajectories (Fig. 1f)
+### Highlight cells with their major trajectories (Fig. 1c)
 
 p = pd %>%
     ggplot() +
@@ -99,7 +99,7 @@ p = pd %>%
     theme(legend.position="none") + 
     ggsave(paste0(work_path, "Global_embedding_2D_UMAP_major_trajectory.png"), width = 10, height = 10, dpi = 300)
 
-### Highlight cells with their day timepoints (Fig. 1f)
+### Highlight cells with their day timepoints (Fig. 1c)
 ### Of note, we need to downsample cells from each timepint to a similar number (i.e. 100,000)
 
 pd_1 = pd %>% filter(pd$day %in% c("E8.75", "E17.25")) %>% as.data.frame()
@@ -117,7 +117,7 @@ p = pd_sub[sample(1:nrow(pd_sub))] %>%
 
 
 ###############################################################################
-### Making 3D UMAP for individual major_trajectories (Supplementary Fig. 6) ###
+### Making 3D UMAP for individual major_trajectories (Extended Data Fig. 3) ###
 ###############################################################################
 
 source("JAX_help_code.R")

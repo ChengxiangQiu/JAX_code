@@ -4,7 +4,7 @@
 ###################################
 
 ################################################################
-### checking potential batch effects (Supplementary Fig. 3b) ###
+### checking potential batch effects (Extended Data Fig. 2g) ###
 ################################################################
 
 source("JAX_help_code.R")
@@ -77,7 +77,7 @@ p = ggplot(df, aes(x=pct, fill=resource)) +
 ### Here, to check if any potential batch effects, we integrate cells from adjacent 
 ### timepoints but profiled by different sci-RNA-seq3 experiments.
 
-### Supplementary Figure 4a-b
+### Extended Data Fig. 2h-i
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
@@ -169,7 +169,7 @@ for(batch_id in batch_list){
 ### examining hemoglobin and collagen transcripts.
 #################################################################################
 
-### Supplementary Figure 5
+### Extended Data Fig. 2k
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")

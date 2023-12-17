@@ -245,7 +245,7 @@ col_names_order = c("Telencephalon",
                     "Spinal cord/r7/r8",
                     "Floorplate and p3 domain")
 
-### Fig. 5i
+### Fig. 4g
 ### The number of mutual nearest neighbors (MNN) pairs between pairwise neuroectodermal territories (column) and their derivative cell types (row).
 
 heatmap.2(as.matrix(dat_num_sub[row_names_order, col_names_order]), 
@@ -294,7 +294,7 @@ df = pd_back %>% select(UMAP_1 = UMAP_2d_1, UMAP_2 = UMAP_2d_2, cell_id, day) %>
 df$celltype_derive[is.na(df$celltype_derive)] = "other"
 df$freq[is.na(df$freq)] = 0
 
-### Fig. 5j
+### Fig. 4h
 ### The same UMAP as the patterned neuroectoderm, but with inferred progenitor cells colored by derivative cell type with the most frequent MNN pairs.
 
 try(ggplot() +
@@ -305,7 +305,7 @@ try(ggplot() +
         theme(legend.position="none") + 
         ggsave(paste0(work_path, "backbone_mapping.png"), width = 8, height = 6, dpi = 300), silent = T)
 
-### For each neuronal subtype in Fig. 5i-j,  we selected the annotation in the patterned neuroectoderm to which the most inferred progenitors had been assigned, and plotted the distribution of timepoints for that subset of inferred progenitors.
+### For each neuronal subtype in Fig. 4g-h,  we selected the annotation in the patterned neuroectoderm to which the most inferred progenitors had been assigned, and plotted the distribution of timepoints for that subset of inferred progenitors.
 
 dat = datB %>% left_join(datA, by = c("A" = "A", "B" = "B")) %>%
     filter(!is.na(value.y)) %>% select(A, B) %>%
@@ -335,7 +335,7 @@ for(i in 1:nrow(dat_x)){
 
 df$celltype_A = factor(df$celltype_A, levels = rev(row_names_order))
 
-### Fig. S20d
+### Extended Data Fig. 10n
 
 p = ggplot(df, aes(x = day_B, y = celltype_A, fill = celltype_A)) +
     geom_density_ridges() +

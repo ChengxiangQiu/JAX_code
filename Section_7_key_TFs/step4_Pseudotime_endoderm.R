@@ -153,7 +153,7 @@ boxplot(df$pseudotime~factor(df$group))
 df$UMAP_1 = reducedDims(cds)$UMAP[,1]
 df$UMAP_2 = reducedDims(cds)$UMAP[,2]
 
-### Fig. S22e
+### Extended Data Fig. 11m
 
 p = ggplot() +
     geom_point(data = df, aes(x = UMAP_1, y = UMAP_2), size=2, color = "black") +
@@ -221,7 +221,7 @@ p = ggplot() +
     theme(axis.text.x = element_text(color="black"), axis.text.y = element_text(color="black")) +
     scale_color_brewer(palette = "Paired")
 
-### Fig. S22f
+### Extended Data Fig. 11n
 
 pdf(paste0(work_path, "Def_endoderm_gene_expression_pseudotime_add_offset.pdf"), 5, 3)
 print(p)

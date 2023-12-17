@@ -105,7 +105,7 @@ df = data.frame(exp = c(as.vector(gene_count_x[1,]), as.vector(gene_count_x[2,])
                 gene = c(rep("Sox2", nrow(emb)), rep("Tbx6", nrow(emb))),
                 PC_1 = c(as.vector(emb[,1]), as.vector(emb[,1])))
 
-### Fig. 2f
+### Fig. 2e
 df %>%
     ggplot(aes(PC_1, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -119,7 +119,7 @@ df = data.frame(exp = c(as.vector(gene_count_x[3,]), as.vector(gene_count_x[4,])
                 gene = c(rep("Mesi1", nrow(emb)), rep("T", nrow(emb)), rep("Wnt3a", nrow(emb)), rep("Cyp26a1", nrow(emb))),
                 PC_3 = c(as.vector(emb[,3]), as.vector(emb[,3]), as.vector(emb[,3]), as.vector(emb[,3])))
 
-### Fig. 2f
+### Fig. 2e
 df %>%
     ggplot(aes(PC_3, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -134,7 +134,7 @@ df$somite_count = factor(df$somite_count, levels = names(somite_color_plate))
 df$somite = as.vector(gsub(" somites", "", df$somite_count))
 df$somite = factor(df$somite, levels = c(0, 2:12, 14:18, 20:34))
 
-### Fig. 2f
+### Fig. 2e
 df %>%
     ggplot( aes(somite, PC_2, fill = somite_count)) + 
     geom_boxplot(outlier.shape = NA) + 

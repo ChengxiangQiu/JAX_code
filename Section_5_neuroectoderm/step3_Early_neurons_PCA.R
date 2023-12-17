@@ -98,7 +98,7 @@ neuron_sub_color_plate = c("dI1" = '#636EFA',
                            "V2b" = '#1F77B4',
                            "V3"  = '#FF7F0E')
 
-### Fig. 5g
+### Extended Data Fig. 10e
 
 fig1 = plot_ly(df, x = ~PC_1, y = ~PC_2, z = ~PC_3, color = ~celltype, colors = neuron_sub_color_plate, size = 1) %>% 
     layout(scene = list(xaxis=list(title = list(text ='PC_1 (31.1%)', font = t1), tickfont = t2),
@@ -118,7 +118,7 @@ fig2 = plot_ly(df_sub, x = ~PC_1, y = ~PC_2, z = ~PC_3, color = ~day, colors = n
                         camera = list(eye = list(x = -0.8, y = 2, z = 1.5))),
            showlegend = FALSE)
 
-### Fig. 5h
+### Extended Data Fig. 10f
 
 p1 = df %>%
     ggplot( aes(day, PC_1, fill = day)) + 

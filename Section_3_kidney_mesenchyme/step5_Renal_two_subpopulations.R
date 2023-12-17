@@ -8,7 +8,7 @@
 ### lateral plate & intermediate mesoderm
 ###################################################################################
 
-### Supplementary Figure 13
+### Extended Data Fig. 7
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")

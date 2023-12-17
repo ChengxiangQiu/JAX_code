@@ -178,7 +178,7 @@ for(trajectory_i in trajectory_list){
 ### Plotting gene expression for selected genes in those three major cell types ###
 ###################################################################################
 
-### Fig. 7f
+### Fig. 6f
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
@@ -204,7 +204,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 timepoint = rep(as.vector(pd_sub$day), nrow(gene_count_x)), stringsAsFactors = F)
 
-### Fig. 7f (bottom left panel)
+### Fig. 6f (bottom left panel)
 df %>%
     ggplot(aes(timepoint, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -232,7 +232,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 timepoint = rep(as.vector(pd_sub$day), nrow(gene_count_x)), stringsAsFactors = F)
 
-### Fig. 7f (bottom middle panel)
+### Fig. 6f (bottom middle panel)
 df %>%
     ggplot(aes(timepoint, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -261,7 +261,7 @@ df = data.frame(exp = c(t(as.matrix(gene_count_x))),
                 gene = rep(rownames(gene_count_x), each = ncol(gene_count_x)),
                 timepoint = rep(as.vector(pd_sub$day), nrow(gene_count_x)), stringsAsFactors = F)
 
-### Fig. 7f (bottom right panel)
+### Fig. 6f (bottom right panel)
 df %>%
     ggplot(aes(timepoint, exp, color = gene)) + geom_smooth(method = loess, se = FALSE) +
     labs(x="", y="", title="") +
@@ -272,7 +272,7 @@ df %>%
 
 
 ### plotting genes in the original dataset, between E18.75 vs. P0
-### Fig. 7f top three panels
+### Fig. 6f top three panels
 
 pd_all = readRDS(paste0(work_path, "df_cell.rds"))
 pd_sub = pd_all[pd_all$celltype_update %in% c("Adipocyte cells (Cyp2e1+)", "Airway club cells", "Alveolar Type 1 cells",

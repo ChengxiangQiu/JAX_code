@@ -7,7 +7,7 @@
 ### Re-embedded 2D UMAP of cells from three major cell clusters before E18.75, E18.75, or P0 ###
 ################################################################################################
 
-### Fig. 7a
+### Fig. 6a
 
 source("JAX_help_code.R")
 source("JAX_color_code.R")
@@ -184,7 +184,7 @@ day_color = c("#5dae46",
               "#bc6476")
 names(day_color) = day_list
 
-### Fig. 7b
+### Fig. 6b
 ### size 10 X 6
 
 p = ggplot() +

@@ -40,7 +40,7 @@ pd_2 = pd_x[pd_x$day %in% names(x_table)[x_table <= 1000],]
 pd_plot = rbind(pd_1, pd_2)
 pd_plot$day = factor(pd_plot$day, levels = names(day_color_plate))
 
-### Fig. S22h
+### Extended Data Fig. 11p
 
 p = ggplot() +
     geom_point(data = pd_plot, aes(x = UMAP_2d_1, y = UMAP_2d_2), size=1) +
@@ -100,7 +100,7 @@ dat_uniq = dat %>% filter(meta_group.x == "B_M11", meta_group.y %in% nodes_inclu
 
 pd_target = pd_target %>% left_join(dat_uniq[,c("cell_id","MNN")])
 
-### Fig. S22i
+### Extended Data Fig. 11q
 
 p = ggplot() +
     geom_point(data = pd_target[is.na(pd_target$MNN),], aes(x = UMAP_2d_1, y = UMAP_2d_2), color = "grey80", size=0.6) +

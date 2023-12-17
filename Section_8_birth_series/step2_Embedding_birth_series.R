@@ -30,7 +30,7 @@ df$tmp = as.vector(day)
 pd_cell_num_1 = df %>% group_by(tmp, day) %>% tally() %>% rename(cell_num = n) %>% as.data.frame()
 pd_cell_num_1$tmp = factor(pd_cell_num_1$tmp, levels = rev(1:12))
 
-### Fig. S23a
+### Extended Data Fig. 12a
 
 p = pd_cell_num_1 %>%
     ggplot(aes(tmp, cell_num, fill = day)) + 
@@ -58,7 +58,7 @@ work_path = "./"
 
 pd = readRDS(paste0(work_path, "pd_birth.rds"))
 
-### Fig. S23b
+### Extended Data Fig. 12b
 
 p = pd %>%
     ggplot() +
@@ -85,7 +85,7 @@ trajectory_i = "Hepatocytes"
 df = readRDS(paste0(work_path, "Birth_series_", trajectory_i, "_Csections.obs.rds"))
 df$day = paste0("Csection_", as.vector(df$day), "m")
 
-### Fig. 7e (1st row)
+### Fig. 6e (1st row)
 
 birth_color_plate = c(birth_color_plate, "other" = "grey80")
 
@@ -111,7 +111,7 @@ trajectory_i = "Adipocytes"
 df = readRDS(paste0(work_path, "Birth_series_", trajectory_i, "_Csections.obs.rds"))
 df$day = paste0("Csection_", as.vector(df$day), "m")
 
-### Fig. S23c
+### Extended Data Fig. 12c
 
 color_plate = c("Brown adipocyte cells" = "#cb6751",
                 "Adipocyte progenitor cells" = "#7aa457",
@@ -125,7 +125,7 @@ p = ggplot() +
     theme(legend.position="none") + 
     ggsave(paste0(work_path, trajectory_i, "_anno.png"), width = 4, height = 4, dpi = 300)
 
-### Fig. 7e (2nd row)
+### Fig. 6e (2nd row)
 
 for(i in paste0("Csection_", c(0,20,40,60,80), "m")){
     df$tmp = if_else(df$day == i, i, "other")
@@ -149,7 +149,7 @@ trajectory_i = "Lung_and_airway"
 df = readRDS(paste0(work_path, "Birth_series_", trajectory_i, "_Csections.obs.rds"))
 df$day = paste0("Csection_", as.vector(df$day), "m")
 
-### Fig. S23d
+### Extended Data Fig. 12d
 
 color_plate = c("Airway club cells" = "#6dd9b4",
                 "Alveolar Type 1 cells" = "#008cff",
@@ -165,7 +165,7 @@ p = ggplot() +
     theme(legend.position="none") + 
     ggsave(paste0(work_path, trajectory_i, "_anno.png"), width = 4, height = 4, dpi = 300)
 
-### Fig. 7e (3rd row)
+### Fig. 6e (3rd row)
 
 for(i in paste0("Csection_", c(0,20,40,60,80), "m")){
     df$tmp = if_else(df$day == i, i, "other")

@@ -15,7 +15,7 @@ example_i = "LPM"; print(example_i)
 
 pd = readRDS(paste0(work_path, example_i, "_adata_scale.obs.rds"))
 
-### Fig. 3f
+### Fig. 3e
 p = pd %>%
     ggplot() +
     geom_point(aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.35) +
@@ -32,7 +32,7 @@ pd_2 = pd %>% filter(day %in% names(x_table)[x_table <= 10000]) %>% as.data.fram
 pd_sub = rbind(pd_1, pd_2)
 pd_sub$day = factor(pd_sub$day, levels = names(day_color_plate))
 
-### Fig. 3f (sub panel on the top left)
+### Fig. 3e (sub panel on the top left)
 p = ggplot() +
     geom_point(data = pd_sub, aes(x = UMAP_2d_1, y = UMAP_2d_2), size=0.35) +
     geom_point(data = pd_sub[sample(1:nrow(pd_sub)),], aes(x = UMAP_2d_1, y = UMAP_2d_2, color = day), size=0.2) +
