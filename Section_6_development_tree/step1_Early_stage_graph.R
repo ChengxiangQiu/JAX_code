@@ -110,7 +110,7 @@ pd_all$cell_type = as.vector(pd_all$celltype_update)
 pd_sub = pd_all[,c("day","group","cell_state","cell_type","cell_id")]
 
 gene_count = doExtractData(pd_sub, mouse_gene[gene_overlap,])
-obj = CreateSeuratObject(gene_count, pd)
+#obj = CreateSeuratObject(gene_count, pd)
 
 obj_2 = CreateSeuratObject(gene_count, meta.data = pd_sub)
 
